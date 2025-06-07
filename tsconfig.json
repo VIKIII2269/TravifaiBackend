@@ -13,6 +13,8 @@
     "incremental": true,
     "strict": true,
     "moduleResolution": "node",
+    "strictPropertyInitialization": false,
+
     "esModuleInterop": true,
     "skipLibCheck": true
   },

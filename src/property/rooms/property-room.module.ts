@@ -1,8 +1,8 @@
 // src/property/rooms/property-rooms.module.ts
 
 import { Module } from '@nestjs/common';
-import { PropertyRoomsService } from './property-rooms.service';
-import { PropertyRoomsController } from './property-rooms.controller';
+import { PropertyRoomsService } from './property-room.service';
+import { PropertyRoomsController } from './property-room.controller';
 import { PrismaService } from '../../prisma.service';
 import { S3Service } from '../../utils/s3.service';
 

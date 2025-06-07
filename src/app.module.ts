@@ -6,7 +6,7 @@ import { PrismaModule } from './prisma.module';
 import { AuthModule } from './auth/auth.module';
 
 import { PropertyInfoModule } from './property/info/property-info.module';
-import { PropertyRoomsModule } from './property/rooms/property-rooms.module';
+import { PropertyRoomsModule } from './property/rooms/property-room.module';
 import { ConnectivityModule } from './property/connectivity/connectivity.module';
 import { PropertyUspModule } from './property/usp/property-usp.module';
 import { AmenitiesModule } from './property/amenities/amenities.module';

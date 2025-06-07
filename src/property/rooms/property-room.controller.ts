@@ -11,7 +11,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { PropertyRoomsService } from './property-rooms.service';
+import { PropertyRoomsService } from './property-room.service';
 import { CreatePropertyRoomDto } from './dto/property-room.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { S3Service } from '../../utils/s3.service';

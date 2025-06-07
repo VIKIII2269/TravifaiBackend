@@ -58,7 +58,8 @@ export class PropertyInfoController {
     @Body() createDto: CreatePropertyInfoDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    let videoUrl: string = null;
+    let videoUrl: string | undefined = undefined;
+
     if (file) {
       videoUrl = await this.s3Service.uploadFile(file.buffer, file.originalname, 'intro-videos');
     }

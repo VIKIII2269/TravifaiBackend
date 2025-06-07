@@ -6,7 +6,7 @@ import {
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from '../prisma.module'; // <-- Import from PrismaModule
+import { PrismaService } from '../prisma.service'; // <-- Import from PrismaModule
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import * as nodemailer from 'nodemailer';

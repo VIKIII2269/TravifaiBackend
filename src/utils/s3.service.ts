@@ -15,7 +15,8 @@ export class S3Service {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     });
-    this.bucketName = process.env.AWS_S3_BUCKET_NAME;
+    this.bucketName = process.env.AWS_S3_BUCKET_NAME!;
+
   }
 
   async uploadFile(fileBuffer: Buffer, originalName: string, folder: string): Promise<string> {
