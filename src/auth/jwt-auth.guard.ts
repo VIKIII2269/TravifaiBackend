@@ -1,12 +1,26 @@
-// src/auth/jwt-auth.guard.ts
-
-import { Injectable, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  ExecutionContext,
+  UnauthorizedException,
+  CanActivate,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt') {
+export class JwtAuthGuard extends AuthGuard('jwt') implements CanActivate {
   canActivate(context: ExecutionContext) {
-    return super.canActivate(context);
+    const req = context.switchToHttp().getRequest();
+
+    // Bypass auth for Swagger UI and JSON spec
+    if (
+      req.path.startsWith('/api/docs') ||
+      req.path.startsWith('/api/docs-json')
+    ) {
+      return true;
+    }
+
+    // Otherwise enforce JWT auth
+    return super.canActivate(context) as boolean;
   }
 
   handleRequest(err: any, user: any, info: any) {
