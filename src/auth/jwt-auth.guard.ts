@@ -11,7 +11,12 @@ export class JwtAuthGuard extends AuthGuard('jwt') implements CanActivate {
   canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest();
 
-    // Bypass auth for Swagger UI and JSON spec
+    // 1) Allow unauthenticated calls to all /api/auth/* routes:
+    if (req.path.startsWith('/api/auth/')) {
+      return true;
+    }
+
+    // 2) Still allow Swagger UI & JSON spec:
     if (
       req.path.startsWith('/api/docs') ||
       req.path.startsWith('/api/docs-json')
@@ -19,7 +24,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') implements CanActivate {
       return true;
     }
 
-    // Otherwise enforce JWT auth
+    // 3) Everything else requires a valid JWT
     return super.canActivate(context) as boolean;
   }
 
