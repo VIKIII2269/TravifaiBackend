@@ -4,9 +4,9 @@ export declare class PropertyStatusService {
     constructor(prisma: PrismaService);
     getStatus(userId: string): Promise<{
         id: string;
+        status: string;
         userId: string;
         createdAt: Date;
         updatedAt: Date;
-        status: string;
     }>;
 }

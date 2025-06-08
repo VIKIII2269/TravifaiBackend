@@ -5,19 +5,19 @@ export declare class PropertySubmitController {
     submit(userId: string): Promise<{
         data: {
             id: string;
+            status: string;
             userId: string;
             createdAt: Date;
             updatedAt: Date;
-            status: string;
         };
     }>;
     approve(userId: string): Promise<{
         data: {
             id: string;
+            status: string;
             userId: string;
             createdAt: Date;
             updatedAt: Date;
-            status: string;
         };
     }>;
 }

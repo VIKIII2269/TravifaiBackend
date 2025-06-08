@@ -4,16 +4,16 @@ export declare class PropertySubmitService {
     constructor(prisma: PrismaService);
     submit(userId: string): Promise<{
         id: string;
+        status: string;
         userId: string;
         createdAt: Date;
         updatedAt: Date;
-        status: string;
     }>;
     simulateApproval(userId: string): Promise<{
         id: string;
+        status: string;
         userId: string;
         createdAt: Date;
         updatedAt: Date;
-        status: string;
     }>;
 }
