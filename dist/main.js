@@ -7,7 +7,14 @@ const common_1 = require("@nestjs/common");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.setGlobalPrefix('api');
-    app.useGlobalPipes(new common_1.ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
+    app.useGlobalPipes(new common_1.ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+        transformOptions: {
+            enableImplicitConversion: true,
+        },
+    }));
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Hotel Property Registration API')
         .setDescription('API documentation for the hotel property registration backend')
@@ -15,8 +22,8 @@ async function bootstrap() {
         .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }, 'JWT')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
-    swagger_1.SwaggerModule.setup('docs', app, document);
-    const port = process.env.PORT || 3000;
+    swagger_1.SwaggerModule.setup('api/docs', app, document);
+    const port = 3000;
     await app.listen(port);
     console.log(`🚀 Application is running on: ${await app.getUrl()}`);
 }

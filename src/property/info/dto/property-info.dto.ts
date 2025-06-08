@@ -1,5 +1,3 @@
-// src/property/info/dto/property-info.dto.ts
-
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
@@ -8,6 +6,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsObject,
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -77,17 +76,20 @@ export class CreatePropertyInfoDto {
   designation!: string;
 
   @ApiProperty({ type: () => ContactDto })
+  @IsObject()                // ensure it’s an object before nested validation
   @ValidateNested()
   @Type(() => ContactDto)
   contact1!: ContactDto;
 
   @ApiProperty({ type: () => ContactDto, required: false })
+  @IsOptional()
+  @IsObject()
   @ValidateNested()
   @Type(() => ContactDto)
-  @IsOptional()
   contact2?: ContactDto;
 
   @ApiProperty({ type: () => LocationDto })
+  @IsObject()
   @ValidateNested()
   @Type(() => LocationDto)
   location!: LocationDto;
@@ -119,7 +121,7 @@ export class CreatePropertyInfoDto {
   @IsOptional()
   commissionPercentToOTAs?: number;
 
-  // This field is handled via @UploadedFile, so optional here
+  // Handled via @UploadedFile in controller
   @ApiProperty({ type: 'string', format: 'binary', required: false })
   uploadIntroVideo?: any;
 }

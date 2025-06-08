@@ -95,19 +95,22 @@ __decorate([
 ], CreatePropertyInfoDto.prototype, "designation", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: () => ContactDto }),
+    (0, class_validator_1.IsObject)(),
     (0, class_validator_1.ValidateNested)(),
     (0, class_transformer_1.Type)(() => ContactDto),
     __metadata("design:type", ContactDto)
 ], CreatePropertyInfoDto.prototype, "contact1", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: () => ContactDto, required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsObject)(),
     (0, class_validator_1.ValidateNested)(),
     (0, class_transformer_1.Type)(() => ContactDto),
-    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", ContactDto)
 ], CreatePropertyInfoDto.prototype, "contact2", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: () => LocationDto }),
+    (0, class_validator_1.IsObject)(),
     (0, class_validator_1.ValidateNested)(),
     (0, class_transformer_1.Type)(() => LocationDto),
     __metadata("design:type", LocationDto)

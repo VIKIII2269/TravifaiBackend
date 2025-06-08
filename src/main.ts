@@ -12,9 +12,16 @@ async function bootstrap() {
   // 1) All endpoints prefixed with /api
   app.setGlobalPrefix('api');
 
-  // 2) Global validation pipe
+  // 2) Global validation pipe with transformation & implicit conversions
   app.useGlobalPipes(
-    new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
   );
 
   // 3) Swagger setup at /api/docs
@@ -24,15 +31,15 @@ async function bootstrap() {
     .setVersion('1.0')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
-      'JWT'
+      'JWT',
     )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('api/docs', app, document);
 
   // 4) Start listening
-  const port = process.env.PORT || 3000;
+  const port =  3000;
   await app.listen(port);
   console.log(`🚀 Application is running on: ${await app.getUrl()}`);
 }

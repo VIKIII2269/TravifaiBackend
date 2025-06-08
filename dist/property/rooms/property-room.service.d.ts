@@ -6,8 +6,8 @@ export declare class PropertyRoomsService {
     create(userId: string, dto: CreatePropertyRoomDto, imageUrls: string[]): Promise<{
         amenities: string[];
         id: string;
-        totalRooms: number;
         userId: string;
+        totalRooms: number;
         createdAt: Date;
         updatedAt: Date;
         roomTypeName: string;
@@ -32,8 +32,8 @@ export declare class PropertyRoomsService {
     findAllByUser(userId: string): Promise<{
         amenities: string[];
         id: string;
-        totalRooms: number;
         userId: string;
+        totalRooms: number;
         createdAt: Date;
         updatedAt: Date;
         roomTypeName: string;

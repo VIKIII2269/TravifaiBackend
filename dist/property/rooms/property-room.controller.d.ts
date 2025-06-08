@@ -11,8 +11,8 @@ export declare class PropertyRoomsController {
         data: {
             amenities: string[];
             id: string;
-            totalRooms: number;
             userId: string;
+            totalRooms: number;
             createdAt: Date;
             updatedAt: Date;
             roomTypeName: string;
@@ -39,8 +39,8 @@ export declare class PropertyRoomsController {
         data: {
             amenities: string[];
             id: string;
-            totalRooms: number;
             userId: string;
+            totalRooms: number;
             createdAt: Date;
             updatedAt: Date;
             roomTypeName: string;
