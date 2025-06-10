@@ -4,17 +4,21 @@ export declare class PropertyRoomsService {
     private readonly prisma;
     constructor(prisma: PrismaService);
     create(userId: string, dto: CreatePropertyRoomDto, imageUrls: string[]): Promise<{
+        amenities: string[];
         id: string;
+        totalRooms: number;
         userId: string;
+        createdAt: Date;
+        updatedAt: Date;
         roomTypeName: string;
         floorNumber: number;
-        totalRooms: number;
         roomType: string;
         bedType: string;
         roomView: string;
         smokingAllowed: boolean;
         extraBedAllowed: boolean;
-        amenities: string[];
+        availabilityStart: Date;
+        availabilityEnd: Date;
         baseAdult: number;
         maxAdult: number;
         maxChildren: number;
@@ -22,25 +26,25 @@ export declare class PropertyRoomsService {
         baseRate: number;
         extraAdultCharge: number;
         childCharge: number;
-        availabilityStart: Date;
-        availabilityEnd: Date;
         totalRoomsInProperty: number;
         uploadRoomImageUrls: string[];
-        createdAt: Date;
-        updatedAt: Date;
     }>;
     findAllByUser(userId: string): Promise<{
+        amenities: string[];
         id: string;
+        totalRooms: number;
         userId: string;
+        createdAt: Date;
+        updatedAt: Date;
         roomTypeName: string;
         floorNumber: number;
-        totalRooms: number;
         roomType: string;
         bedType: string;
         roomView: string;
         smokingAllowed: boolean;
         extraBedAllowed: boolean;
-        amenities: string[];
+        availabilityStart: Date;
+        availabilityEnd: Date;
         baseAdult: number;
         maxAdult: number;
         maxChildren: number;
@@ -48,11 +52,7 @@ export declare class PropertyRoomsService {
         baseRate: number;
         extraAdultCharge: number;
         childCharge: number;
-        availabilityStart: Date;
-        availabilityEnd: Date;
         totalRoomsInProperty: number;
         uploadRoomImageUrls: string[];
-        createdAt: Date;
-        updatedAt: Date;
     }[]>;
 }
