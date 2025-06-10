@@ -1,4 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
+// property-info.dto.ts
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsBoolean,
   IsEmail,
@@ -6,102 +7,79 @@ import {
   IsNumber,
   IsOptional,
   IsString,
-  IsObject,
-  ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
-
-export class ContactDto {
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  phone!: string;
-
-  @ApiProperty()
-  @IsEmail()
-  email!: string;
-
-  @ApiProperty({ required: false })
-  @IsString()
-  @IsOptional()
-  landline?: string;
-}
-
-export class LocationDto {
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  locality!: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  street!: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  city!: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  state!: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  country!: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  pincode!: string;
-}
 
 export class CreatePropertyInfoDto {
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
   hotelName!: string;
 
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
   businessOwnerName!: string;
 
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
   designation!: string;
-
-  @ApiProperty({ type: () => ContactDto })
-  @IsObject()                // ensure it’s an object before nested validation
-  @ValidateNested()
-  @Type(() => ContactDto)
-  contact1!: ContactDto;
-
-  @ApiProperty({ type: () => ContactDto, required: false })
-  @IsOptional()
-  @IsObject()
-  @ValidateNested()
-  @Type(() => ContactDto)
-  contact2?: ContactDto;
-
-  @ApiProperty({ type: () => LocationDto })
-  @IsObject()
-  @ValidateNested()
-  @Type(() => LocationDto)
-  location!: LocationDto;
 
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
+  contact1Phone!: string;
+
+  @ApiProperty()
+  @IsEmail()
+  contact1Email!: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  contact1Landline?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  contact2Phone?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsEmail()
+  contact2Email?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  contact2Landline?: string;
+
+  @ApiProperty()
+  @IsString()
+  locationLocality!: string;
+
+  @ApiProperty()
+  @IsString()
+  locationStreet!: string;
+
+  @ApiProperty()
+  @IsString()
+  locationCity!: string;
+
+  @ApiProperty()
+  @IsString()
+  locationState!: string;
+
+  @ApiProperty()
+  @IsString()
+  locationCountry!: string;
+
+  @ApiProperty()
+  @IsString()
+  locationPincode!: string;
+
+  @ApiProperty()
+  @IsString()
   propertyType!: string;
 
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
   propertyRelationship!: string;
 
   @ApiProperty()
@@ -116,14 +94,15 @@ export class CreatePropertyInfoDto {
   @IsBoolean()
   registerOnOTAs!: boolean;
 
-  @ApiProperty({ required: false })
-  @IsNumber()
+  @ApiPropertyOptional()
   @IsOptional()
+  @IsNumber()
   commissionPercentToOTAs?: number;
 
-  // Handled via @UploadedFile in controller
-  @ApiProperty({ type: 'string', format: 'binary', required: false })
+  @ApiPropertyOptional({ type: 'string', format: 'binary' })
+  @IsOptional()
   uploadIntroVideo?: any;
 }
+
 
 export class UpdatePropertyInfoDto extends CreatePropertyInfoDto {}

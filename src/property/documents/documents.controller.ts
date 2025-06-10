@@ -25,29 +25,22 @@ export class DocumentsController {
     private readonly s3Service: S3Service,
   ) {}
 
-  @Post()
-  @ApiOperation({ summary: 'Upload a document' })
-  @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        category: { type: 'string', enum: Object.values(UploadDocumentDto.prototype) },
-        file: { type: 'string', format: 'binary' },
-      },
-    },
-  })
-  @UseInterceptors(FileInterceptor('file'))
-  @ApiResponse({ status: 201, description: 'Document uploaded.' })
-  async upload(
-    @UserId() userId: string,
-    @Body() dto: UploadDocumentDto,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    const fileUrl = await this.s3Service.uploadFile(file.buffer, file.originalname, 'documents');
-    const result = await this.documentsService.upload(userId, dto, fileUrl);
-    return { data: result };
-  }
+@Post()
+@ApiOperation({ summary: 'Upload a document' })
+@ApiConsumes('multipart/form-data')
+@ApiBody({ type: UploadDocumentDto })  // ✅ Automatically uses the DTO schema
+@UseInterceptors(FileInterceptor('file'))
+@ApiResponse({ status: 201, description: 'Document uploaded.' })
+async upload(
+  @UserId() userId: string,
+  @Body() dto: UploadDocumentDto,
+  @UploadedFile() file: Express.Multer.File,
+) {
+  const fileUrl = await this.s3Service.uploadFile(file.buffer, file.originalname, 'documents');
+  const result = await this.documentsService.upload(userId, dto, fileUrl);
+  return { data: result };
+}
+
 
   @Get(':userId')
   @ApiOperation({ summary: 'Get all documents for a user' })

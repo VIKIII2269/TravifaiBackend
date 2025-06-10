@@ -9,122 +9,99 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdatePropertyInfoDto = exports.CreatePropertyInfoDto = exports.LocationDto = exports.ContactDto = void 0;
+exports.UpdatePropertyInfoDto = exports.CreatePropertyInfoDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-const class_transformer_1 = require("class-transformer");
-class ContactDto {
-}
-exports.ContactDto = ContactDto;
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], ContactDto.prototype, "phone", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsEmail)(),
-    __metadata("design:type", String)
-], ContactDto.prototype, "email", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)({ required: false }),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], ContactDto.prototype, "landline", void 0);
-class LocationDto {
-}
-exports.LocationDto = LocationDto;
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], LocationDto.prototype, "locality", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], LocationDto.prototype, "street", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], LocationDto.prototype, "city", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], LocationDto.prototype, "state", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], LocationDto.prototype, "country", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], LocationDto.prototype, "pincode", void 0);
 class CreatePropertyInfoDto {
 }
 exports.CreatePropertyInfoDto = CreatePropertyInfoDto;
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreatePropertyInfoDto.prototype, "hotelName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreatePropertyInfoDto.prototype, "businessOwnerName", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreatePropertyInfoDto.prototype, "designation", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: () => ContactDto }),
-    (0, class_validator_1.IsObject)(),
-    (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => ContactDto),
-    __metadata("design:type", ContactDto)
-], CreatePropertyInfoDto.prototype, "contact1", void 0);
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "contact1Phone", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: () => ContactDto, required: false }),
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "contact1Email", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsObject)(),
-    (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => ContactDto),
-    __metadata("design:type", ContactDto)
-], CreatePropertyInfoDto.prototype, "contact2", void 0);
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "contact1Landline", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: () => LocationDto }),
-    (0, class_validator_1.IsObject)(),
-    (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => LocationDto),
-    __metadata("design:type", LocationDto)
-], CreatePropertyInfoDto.prototype, "location", void 0);
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "contact2Phone", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "contact2Email", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "contact2Landline", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "locationLocality", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "locationStreet", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "locationCity", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "locationState", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "locationCountry", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreatePropertyInfoDto.prototype, "locationPincode", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreatePropertyInfoDto.prototype, "propertyType", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreatePropertyInfoDto.prototype, "propertyRelationship", void 0);
 __decorate([
@@ -143,13 +120,14 @@ __decorate([
     __metadata("design:type", Boolean)
 ], CreatePropertyInfoDto.prototype, "registerOnOTAs", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: false }),
-    (0, class_validator_1.IsNumber)(),
+    (0, swagger_1.ApiPropertyOptional)(),
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreatePropertyInfoDto.prototype, "commissionPercentToOTAs", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: 'string', format: 'binary', required: false }),
+    (0, swagger_1.ApiPropertyOptional)({ type: 'string', format: 'binary' }),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Object)
 ], CreatePropertyInfoDto.prototype, "uploadIntroVideo", void 0);
 class UpdatePropertyInfoDto extends CreatePropertyInfoDto {

@@ -40,15 +40,7 @@ __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Upload a document' }),
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
-    (0, swagger_1.ApiBody)({
-        schema: {
-            type: 'object',
-            properties: {
-                category: { type: 'string', enum: Object.values(documents_dto_1.UploadDocumentDto.prototype) },
-                file: { type: 'string', format: 'binary' },
-            },
-        },
-    }),
+    (0, swagger_1.ApiBody)({ type: documents_dto_1.UploadDocumentDto }),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
     (0, swagger_1.ApiResponse)({ status: 201, description: 'Document uploaded.' }),
     __param(0, (0, user_decorator_1.UserId)()),

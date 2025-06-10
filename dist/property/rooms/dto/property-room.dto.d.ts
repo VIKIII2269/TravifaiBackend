@@ -1,7 +1,3 @@
-export declare class AvailabilityDto {
-    startDate: string;
-    endDate: string;
-}
 export declare class CreatePropertyRoomDto {
     roomTypeName: string;
     floorNumber: number;
@@ -12,7 +8,8 @@ export declare class CreatePropertyRoomDto {
     smokingAllowed: boolean;
     extraBedAllowed: boolean;
     amenities: string[];
-    availability: AvailabilityDto;
+    availabilityStart: string;
+    availabilityEnd: string;
     baseAdult: number;
     maxAdult: number;
     maxChildren: number;

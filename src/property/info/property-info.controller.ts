@@ -1,5 +1,3 @@
-// src/property/info/property-info.controller.ts
-
 import {
   Controller,
   Post,
@@ -8,14 +6,19 @@ import {
   Body,
   Get,
   Param,
-  HttpCode,
-  HttpStatus,
-  UseGuards,
 } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+} from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+
 import { PropertyInfoService } from './property-info.service';
 import { CreatePropertyInfoDto } from './dto/property-info.dto';
-import { ApiTags, ApiBearerAuth, ApiConsumes, ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { S3Service } from '../../utils/s3.service';
 import { UserId } from '../../common/decorators/user.decorator';
 
@@ -31,26 +34,6 @@ export class PropertyInfoController {
   @Post()
   @ApiOperation({ summary: 'Create or update property information' })
   @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        hotelName: { type: 'string' },
-        businessOwnerName: { type: 'string' },
-        designation: { type: 'string' },
-        contact1: { type: 'object' },
-        contact2: { type: 'object' },
-        location: { type: 'object' },
-        propertyType: { type: 'string' },
-        propertyRelationship: { type: 'string' },
-        onLease: { type: 'boolean' },
-        totalRooms: { type: 'number' },
-        registerOnOTAs: { type: 'boolean' },
-        commissionPercentToOTAs: { type: 'number' },
-        uploadIntroVideo: { type: 'string', format: 'binary' },
-      },
-    },
-  })
   @UseInterceptors(FileInterceptor('uploadIntroVideo'))
   @ApiResponse({ status: 201, description: 'Property info created/updated.' })
   async create(
@@ -58,12 +41,21 @@ export class PropertyInfoController {
     @Body() createDto: CreatePropertyInfoDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    let videoUrl: string | undefined = undefined;
+    let videoUrl: string | undefined;
 
     if (file) {
-      videoUrl = await this.s3Service.uploadFile(file.buffer, file.originalname, 'intro-videos');
+      videoUrl = await this.s3Service.uploadFile(
+        file.buffer,
+        file.originalname,
+        'intro-videos',
+      );
     }
-    const result = await this.propertyInfoService.createOrUpdate(userId, createDto, videoUrl);
+
+    const result = await this.propertyInfoService.createOrUpdate(
+      userId,
+      createDto,
+      videoUrl,
+    );
     return { data: result };
   }
 

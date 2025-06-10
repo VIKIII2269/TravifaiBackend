@@ -14,10 +14,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PropertyInfoController = void 0;
 const common_1 = require("@nestjs/common");
-const property_info_service_1 = require("./property-info.service");
-const property_info_dto_1 = require("./dto/property-info.dto");
 const swagger_1 = require("@nestjs/swagger");
 const platform_express_1 = require("@nestjs/platform-express");
+const property_info_service_1 = require("./property-info.service");
+const property_info_dto_1 = require("./dto/property-info.dto");
 const s3_service_1 = require("../../utils/s3.service");
 const user_decorator_1 = require("../../common/decorators/user.decorator");
 let PropertyInfoController = class PropertyInfoController {
@@ -26,7 +26,7 @@ let PropertyInfoController = class PropertyInfoController {
         this.s3Service = s3Service;
     }
     async create(userId, createDto, file) {
-        let videoUrl = undefined;
+        let videoUrl;
         if (file) {
             videoUrl = await this.s3Service.uploadFile(file.buffer, file.originalname, 'intro-videos');
         }
@@ -43,26 +43,6 @@ __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Create or update property information' }),
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
-    (0, swagger_1.ApiBody)({
-        schema: {
-            type: 'object',
-            properties: {
-                hotelName: { type: 'string' },
-                businessOwnerName: { type: 'string' },
-                designation: { type: 'string' },
-                contact1: { type: 'object' },
-                contact2: { type: 'object' },
-                location: { type: 'object' },
-                propertyType: { type: 'string' },
-                propertyRelationship: { type: 'string' },
-                onLease: { type: 'boolean' },
-                totalRooms: { type: 'number' },
-                registerOnOTAs: { type: 'boolean' },
-                commissionPercentToOTAs: { type: 'number' },
-                uploadIntroVideo: { type: 'string', format: 'binary' },
-            },
-        },
-    }),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('uploadIntroVideo')),
     (0, swagger_1.ApiResponse)({ status: 201, description: 'Property info created/updated.' }),
     __param(0, (0, user_decorator_1.UserId)()),

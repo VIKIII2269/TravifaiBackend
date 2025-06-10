@@ -26,7 +26,11 @@ class UploadDocumentDto {
 }
 exports.UploadDocumentDto = UploadDocumentDto;
 __decorate([
-    (0, swagger_1.ApiProperty)({ enum: DocumentCategory }),
+    (0, swagger_1.ApiProperty)({
+        enum: DocumentCategory,
+        enumName: 'DocumentCategory',
+        description: 'Category of the document',
+    }),
     (0, class_validator_1.IsEnum)(DocumentCategory),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)

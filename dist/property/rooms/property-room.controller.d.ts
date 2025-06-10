@@ -9,19 +9,17 @@ export declare class PropertyRoomsController {
         uploadRoomImages?: Express.Multer.File[];
     }): Promise<{
         data: {
-            amenities: string[];
             id: string;
             userId: string;
-            totalRooms: number;
-            createdAt: Date;
-            updatedAt: Date;
             roomTypeName: string;
             floorNumber: number;
+            totalRooms: number;
             roomType: string;
             bedType: string;
             roomView: string;
             smokingAllowed: boolean;
             extraBedAllowed: boolean;
+            amenities: string[];
             baseAdult: number;
             maxAdult: number;
             maxChildren: number;
@@ -29,27 +27,27 @@ export declare class PropertyRoomsController {
             baseRate: number;
             extraAdultCharge: number;
             childCharge: number;
-            totalRoomsInProperty: number;
             availabilityStart: Date;
             availabilityEnd: Date;
+            totalRoomsInProperty: number;
             uploadRoomImageUrls: string[];
+            createdAt: Date;
+            updatedAt: Date;
         };
     }>;
     findAll(userId: string): Promise<{
         data: {
-            amenities: string[];
             id: string;
             userId: string;
-            totalRooms: number;
-            createdAt: Date;
-            updatedAt: Date;
             roomTypeName: string;
             floorNumber: number;
+            totalRooms: number;
             roomType: string;
             bedType: string;
             roomView: string;
             smokingAllowed: boolean;
             extraBedAllowed: boolean;
+            amenities: string[];
             baseAdult: number;
             maxAdult: number;
             maxChildren: number;
@@ -57,10 +55,12 @@ export declare class PropertyRoomsController {
             baseRate: number;
             extraAdultCharge: number;
             childCharge: number;
-            totalRoomsInProperty: number;
             availabilityStart: Date;
             availabilityEnd: Date;
+            totalRoomsInProperty: number;
             uploadRoomImageUrls: string[];
+            createdAt: Date;
+            updatedAt: Date;
         }[];
     }>;
 }

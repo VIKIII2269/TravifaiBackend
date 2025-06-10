@@ -9,21 +9,7 @@ import {
   IsOptional,
   IsString,
   IsArray,
-  ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
-
-export class AvailabilityDto {
-  @ApiProperty()
-  @IsDateString()
-  @IsNotEmpty()
-  startDate: string;
-
-  @ApiProperty()
-  @IsDateString()
-  @IsNotEmpty()
-  endDate: string;
-}
 
 export class CreatePropertyRoomDto {
   @ApiProperty()
@@ -67,10 +53,15 @@ export class CreatePropertyRoomDto {
   @IsString({ each: true })
   amenities: string[];
 
-  @ApiProperty({ type: AvailabilityDto })
-  @ValidateNested()
-  @Type(() => AvailabilityDto)
-  availability: AvailabilityDto;
+  @ApiProperty()
+  @IsDateString()
+  @IsNotEmpty()
+  availabilityStart: string;
+
+  @ApiProperty()
+  @IsDateString()
+  @IsNotEmpty()
+  availabilityEnd: string;
 
   @ApiProperty()
   @IsNumber()

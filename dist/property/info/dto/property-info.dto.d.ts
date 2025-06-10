@@ -1,23 +1,19 @@
-export declare class ContactDto {
-    phone: string;
-    email: string;
-    landline?: string;
-}
-export declare class LocationDto {
-    locality: string;
-    street: string;
-    city: string;
-    state: string;
-    country: string;
-    pincode: string;
-}
 export declare class CreatePropertyInfoDto {
     hotelName: string;
     businessOwnerName: string;
     designation: string;
-    contact1: ContactDto;
-    contact2?: ContactDto;
-    location: LocationDto;
+    contact1Phone: string;
+    contact1Email: string;
+    contact1Landline?: string;
+    contact2Phone?: string;
+    contact2Email?: string;
+    contact2Landline?: string;
+    locationLocality: string;
+    locationStreet: string;
+    locationCity: string;
+    locationState: string;
+    locationCountry: string;
+    locationPincode: string;
     propertyType: string;
     propertyRelationship: string;
     onLease: boolean;

@@ -9,18 +9,18 @@ export declare class DocumentsController {
         data: {
             id: string;
             userId: string;
-            createdAt: Date;
             category: string;
             fileUrl: string;
+            createdAt: Date;
         };
     }>;
     getByUser(userId: string): Promise<{
         data: {
             id: string;
             userId: string;
-            createdAt: Date;
             category: string;
             fileUrl: string;
+            createdAt: Date;
         }[];
     }>;
 }

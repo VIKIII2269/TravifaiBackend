@@ -6,15 +6,15 @@ export declare class DocumentsService {
     upload(userId: string, dto: UploadDocumentDto, fileUrl: string): Promise<{
         id: string;
         userId: string;
-        createdAt: Date;
         category: string;
         fileUrl: string;
+        createdAt: Date;
     }>;
     getByUser(userId: string): Promise<{
         id: string;
         userId: string;
-        createdAt: Date;
         category: string;
         fileUrl: string;
+        createdAt: Date;
     }[]>;
 }

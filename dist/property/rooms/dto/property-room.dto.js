@@ -9,25 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreatePropertyRoomDto = exports.AvailabilityDto = void 0;
+exports.CreatePropertyRoomDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
-const class_transformer_1 = require("class-transformer");
-class AvailabilityDto {
-}
-exports.AvailabilityDto = AvailabilityDto;
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsDateString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], AvailabilityDto.prototype, "startDate", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsDateString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], AvailabilityDto.prototype, "endDate", void 0);
 class CreatePropertyRoomDto {
 }
 exports.CreatePropertyRoomDto = CreatePropertyRoomDto;
@@ -82,11 +66,17 @@ __decorate([
     __metadata("design:type", Array)
 ], CreatePropertyRoomDto.prototype, "amenities", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: AvailabilityDto }),
-    (0, class_validator_1.ValidateNested)(),
-    (0, class_transformer_1.Type)(() => AvailabilityDto),
-    __metadata("design:type", AvailabilityDto)
-], CreatePropertyRoomDto.prototype, "availability", void 0);
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsDateString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreatePropertyRoomDto.prototype, "availabilityStart", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsDateString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreatePropertyRoomDto.prototype, "availabilityEnd", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNumber)(),

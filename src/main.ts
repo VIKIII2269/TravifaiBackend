@@ -1,9 +1,8 @@
+// src/main.ts
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import {
-  DocumentBuilder,
-  SwaggerModule,
-} from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
@@ -35,11 +34,12 @@ async function bootstrap() {
     )
     .build();
 
+  // SwaggerModule now works with the flattened DTOs (no need for extraModels)
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
   // 4) Start listening
-  const port =  3000;
+  const port = 3000;
   await app.listen(port);
   console.log(`🚀 Application is running on: ${await app.getUrl()}`);
 }

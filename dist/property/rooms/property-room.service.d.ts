@@ -4,19 +4,17 @@ export declare class PropertyRoomsService {
     private readonly prisma;
     constructor(prisma: PrismaService);
     create(userId: string, dto: CreatePropertyRoomDto, imageUrls: string[]): Promise<{
-        amenities: string[];
         id: string;
         userId: string;
-        totalRooms: number;
-        createdAt: Date;
-        updatedAt: Date;
         roomTypeName: string;
         floorNumber: number;
+        totalRooms: number;
         roomType: string;
         bedType: string;
         roomView: string;
         smokingAllowed: boolean;
         extraBedAllowed: boolean;
+        amenities: string[];
         baseAdult: number;
         maxAdult: number;
         maxChildren: number;
@@ -24,25 +22,25 @@ export declare class PropertyRoomsService {
         baseRate: number;
         extraAdultCharge: number;
         childCharge: number;
-        totalRoomsInProperty: number;
         availabilityStart: Date;
         availabilityEnd: Date;
+        totalRoomsInProperty: number;
         uploadRoomImageUrls: string[];
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findAllByUser(userId: string): Promise<{
-        amenities: string[];
         id: string;
         userId: string;
-        totalRooms: number;
-        createdAt: Date;
-        updatedAt: Date;
         roomTypeName: string;
         floorNumber: number;
+        totalRooms: number;
         roomType: string;
         bedType: string;
         roomView: string;
         smokingAllowed: boolean;
         extraBedAllowed: boolean;
+        amenities: string[];
         baseAdult: number;
         maxAdult: number;
         maxChildren: number;
@@ -50,9 +48,11 @@ export declare class PropertyRoomsService {
         baseRate: number;
         extraAdultCharge: number;
         childCharge: number;
-        totalRoomsInProperty: number;
         availabilityStart: Date;
         availabilityEnd: Date;
+        totalRoomsInProperty: number;
         uploadRoomImageUrls: string[];
+        createdAt: Date;
+        updatedAt: Date;
     }[]>;
 }

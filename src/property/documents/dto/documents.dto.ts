@@ -14,7 +14,11 @@ export enum DocumentCategory {
 }
 
 export class UploadDocumentDto {
-  @ApiProperty({ enum: DocumentCategory })
+  @ApiProperty({
+    enum: DocumentCategory,
+    enumName: 'DocumentCategory',
+    description: 'Category of the document',
+  })
   @IsEnum(DocumentCategory)
   @IsNotEmpty()
   category: DocumentCategory;
