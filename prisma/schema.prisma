@@ -79,8 +79,8 @@ model PropertyRoom {
   baseRate             Float
   extraAdultCharge     Float
   childCharge          Float
-  availabilityStart    DateTime
-  availabilityEnd      DateTime
+  availabilityStart    String
+  availabilityEnd      String
   totalRoomsInProperty Int
   uploadRoomImageUrls  String[]
   createdAt            DateTime @default(now())

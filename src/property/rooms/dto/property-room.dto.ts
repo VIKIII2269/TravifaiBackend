@@ -54,12 +54,10 @@ export class CreatePropertyRoomDto {
   amenities: string[];
 
   @ApiProperty()
-  @IsDateString()
   @IsNotEmpty()
   availabilityStart: string;
 
   @ApiProperty()
-  @IsDateString()
   @IsNotEmpty()
   availabilityEnd: string;
 
