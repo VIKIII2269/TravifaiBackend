@@ -25,6 +25,16 @@ __decorate([
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], CreateConnectivityDto.prototype, "connectedWithTravelAgency", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateConnectivityDto.prototype, "channelManagerName", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateConnectivityDto.prototype, "travelAgencyName", void 0);
 class UpdateConnectivityDto extends CreateConnectivityDto {
 }
 exports.UpdateConnectivityDto = UpdateConnectivityDto;

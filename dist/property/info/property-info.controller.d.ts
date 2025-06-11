@@ -8,6 +8,7 @@ export declare class PropertyInfoController {
     create(userId: string, createDto: CreatePropertyInfoDto, file: Express.Multer.File): Promise<{
         data: {
             id: string;
+            userId: string;
             hotelName: string;
             businessOwnerName: string;
             designation: string;
@@ -29,7 +30,6 @@ export declare class PropertyInfoController {
             totalRooms: number;
             registerOnOTAs: boolean;
             commissionPercentToOTAs: number | null;
-            userId: string;
             uploadIntroVideoUrl: string | null;
             createdAt: Date;
             updatedAt: Date;
@@ -38,6 +38,7 @@ export declare class PropertyInfoController {
     getByUser(userId: string): Promise<{
         data: {
             id: string;
+            userId: string;
             hotelName: string;
             businessOwnerName: string;
             designation: string;
@@ -59,7 +60,6 @@ export declare class PropertyInfoController {
             totalRooms: number;
             registerOnOTAs: boolean;
             commissionPercentToOTAs: number | null;
-            userId: string;
             uploadIntroVideoUrl: string | null;
             createdAt: Date;
             updatedAt: Date;

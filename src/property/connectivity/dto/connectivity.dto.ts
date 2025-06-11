@@ -1,7 +1,7 @@
 // src/property/connectivity/dto/connectivity.dto.ts
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 
 export class CreateConnectivityDto {
   @ApiProperty()
@@ -11,6 +11,14 @@ export class CreateConnectivityDto {
   @ApiProperty()
   @IsBoolean()
   connectedWithTravelAgency: boolean;
+
+  @ApiProperty()
+  @IsString()
+  channelManagerName:string;
+
+  @ApiProperty()
+  @IsString()
+  travelAgencyName:string;
 }
 
 export class UpdateConnectivityDto extends CreateConnectivityDto {}

@@ -11,6 +11,8 @@ export declare class ConnectivityController {
             updatedAt: Date;
             channelManagerUsed: boolean;
             connectedWithTravelAgency: boolean;
+            channelManagerName: string;
+            travelAgencyName: string;
         };
     }>;
     getByUser(userId: string): Promise<{
@@ -21,6 +23,8 @@ export declare class ConnectivityController {
             updatedAt: Date;
             channelManagerUsed: boolean;
             connectedWithTravelAgency: boolean;
+            channelManagerName: string;
+            travelAgencyName: string;
         };
     }>;
 }

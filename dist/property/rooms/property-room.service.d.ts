@@ -6,8 +6,8 @@ export declare class PropertyRoomsService {
     create(userId: string, dto: CreatePropertyRoomDto, imageUrls: string[]): Promise<{
         amenities: string[];
         id: string;
-        totalRooms: number;
         userId: string;
+        totalRooms: number;
         createdAt: Date;
         updatedAt: Date;
         roomTypeName: string;
@@ -17,8 +17,6 @@ export declare class PropertyRoomsService {
         roomView: string;
         smokingAllowed: boolean;
         extraBedAllowed: boolean;
-        availabilityStart: Date;
-        availabilityEnd: Date;
         baseAdult: number;
         maxAdult: number;
         maxChildren: number;
@@ -26,14 +24,16 @@ export declare class PropertyRoomsService {
         baseRate: number;
         extraAdultCharge: number;
         childCharge: number;
+        availabilityStart: Date;
+        availabilityEnd: Date;
         totalRoomsInProperty: number;
         uploadRoomImageUrls: string[];
     }>;
     findAllByUser(userId: string): Promise<{
         amenities: string[];
         id: string;
-        totalRooms: number;
         userId: string;
+        totalRooms: number;
         createdAt: Date;
         updatedAt: Date;
         roomTypeName: string;
@@ -43,8 +43,6 @@ export declare class PropertyRoomsService {
         roomView: string;
         smokingAllowed: boolean;
         extraBedAllowed: boolean;
-        availabilityStart: Date;
-        availabilityEnd: Date;
         baseAdult: number;
         maxAdult: number;
         maxChildren: number;
@@ -52,6 +50,8 @@ export declare class PropertyRoomsService {
         baseRate: number;
         extraAdultCharge: number;
         childCharge: number;
+        availabilityStart: Date;
+        availabilityEnd: Date;
         totalRoomsInProperty: number;
         uploadRoomImageUrls: string[];
     }[]>;
