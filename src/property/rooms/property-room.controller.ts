@@ -15,8 +15,16 @@ import { PropertyRoomsService } from './property-room.service';
 import { CreatePropertyRoomDto } from './dto/property-room.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { S3Service } from '../../utils/s3.service';
-import { ApiTags, ApiBearerAuth, ApiOperation, ApiConsumes, ApiBody, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiConsumes,
+  ApiBody,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { UserId } from '../../common/decorators/user.decorator';
+import { plainToInstance } from 'class-transformer';
 
 @ApiTags('Property Rooms')
 @ApiBearerAuth('JWT')
@@ -64,9 +72,40 @@ export class PropertyRoomsController {
   @ApiResponse({ status: 201, description: 'Room created.' })
   async create(
     @UserId() userId: string,
-    @Body() createDto: CreatePropertyRoomDto,
+    @Body() body: any,
     @UploadedFiles() files: { uploadRoomImages?: Express.Multer.File[] },
   ) {
+    // Normalize amenities
+    if (body.amenities && typeof body.amenities === 'string') {
+      body.amenities = [body.amenities];
+    }
+
+    // Explicit number parsing
+    const numericFields = [
+      'floorNumber',
+      'totalRooms',
+      'baseAdult',
+      'maxAdult',
+      'maxChildren',
+      'maxOccupancy',
+      'baseRate',
+      'extraAdultCharge',
+      'childCharge',
+      'totalRoomsInProperty',
+    ];
+    for (const field of numericFields) {
+      if (body[field]) {
+        body[field] = Number(body[field]);
+      }
+    }
+
+    // Boolean parsing
+    body.smokingAllowed = body.smokingAllowed === 'true' || body.smokingAllowed === true;
+    body.extraBedAllowed = body.extraBedAllowed === 'true' || body.extraBedAllowed === true;
+
+    // DTO transformation
+    const createDto = plainToInstance(CreatePropertyRoomDto, body);
+
     let imageUrls: string[] = [];
     if (files?.uploadRoomImages?.length) {
       const uploads = await Promise.all(
@@ -76,6 +115,7 @@ export class PropertyRoomsController {
       );
       imageUrls = uploads;
     }
+
     const result = await this.propertyRoomsService.create(userId, createDto, imageUrls);
     return { data: result };
   }

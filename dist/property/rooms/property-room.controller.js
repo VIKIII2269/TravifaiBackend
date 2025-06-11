@@ -20,12 +20,36 @@ const platform_express_1 = require("@nestjs/platform-express");
 const s3_service_1 = require("../../utils/s3.service");
 const swagger_1 = require("@nestjs/swagger");
 const user_decorator_1 = require("../../common/decorators/user.decorator");
+const class_transformer_1 = require("class-transformer");
 let PropertyRoomsController = class PropertyRoomsController {
     constructor(propertyRoomsService, s3Service) {
         this.propertyRoomsService = propertyRoomsService;
         this.s3Service = s3Service;
     }
-    async create(userId, createDto, files) {
+    async create(userId, body, files) {
+        if (body.amenities && typeof body.amenities === 'string') {
+            body.amenities = [body.amenities];
+        }
+        const numericFields = [
+            'floorNumber',
+            'totalRooms',
+            'baseAdult',
+            'maxAdult',
+            'maxChildren',
+            'maxOccupancy',
+            'baseRate',
+            'extraAdultCharge',
+            'childCharge',
+            'totalRoomsInProperty',
+        ];
+        for (const field of numericFields) {
+            if (body[field]) {
+                body[field] = Number(body[field]);
+            }
+        }
+        body.smokingAllowed = body.smokingAllowed === 'true' || body.smokingAllowed === true;
+        body.extraBedAllowed = body.extraBedAllowed === 'true' || body.extraBedAllowed === true;
+        const createDto = (0, class_transformer_1.plainToInstance)(property_room_dto_1.CreatePropertyRoomDto, body);
         let imageUrls = [];
         if (files?.uploadRoomImages?.length) {
             const uploads = await Promise.all(files.uploadRoomImages.map((file) => this.s3Service.uploadFile(file.buffer, file.originalname, 'room-images')));
@@ -80,7 +104,7 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __param(2, (0, common_1.UploadedFiles)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, property_room_dto_1.CreatePropertyRoomDto, Object]),
+    __metadata("design:paramtypes", [String, Object, Object]),
     __metadata("design:returntype", Promise)
 ], PropertyRoomsController.prototype, "create", null);
 __decorate([
