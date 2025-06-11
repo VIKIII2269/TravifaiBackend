@@ -35,6 +35,7 @@ exports.PropertyRulesController = PropertyRulesController;
 __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Create or update property rules' }),
+    (0, swagger_1.ApiBody)({ type: property_rules_dto_1.CreatePropertyRulesDto }),
     (0, swagger_1.ApiResponse)({ status: 201, description: 'Property rules created/updated.' }),
     __param(0, (0, user_decorator_1.UserId)()),
     __param(1, (0, common_1.Body)()),

@@ -22,8 +22,10 @@ let PropertyRulesService = class PropertyRulesService {
             userId,
             coupleRule: dto.coupleRule,
             guestRule: dto.guestRule,
-            identityRule: dto.identityRule,
+            otherRule: dto.otherRule,
             petRule: dto.petRule,
+            checkInTime: dto.checkInTime,
+            checkOutTime: dto.checkOutTime,
         };
         if (existing) {
             return this.prisma.propertyRules.update({

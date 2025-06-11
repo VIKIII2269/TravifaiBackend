@@ -10,8 +10,8 @@ export declare class PropertyRoomsController {
         data: {
             amenities: string[];
             id: string;
-            userId: string;
             totalRooms: number;
+            userId: string;
             createdAt: Date;
             updatedAt: Date;
             roomTypeName: string;
@@ -21,6 +21,8 @@ export declare class PropertyRoomsController {
             roomView: string;
             smokingAllowed: boolean;
             extraBedAllowed: boolean;
+            availabilityStart: Date;
+            availabilityEnd: Date;
             baseAdult: number;
             maxAdult: number;
             maxChildren: number;
@@ -28,8 +30,6 @@ export declare class PropertyRoomsController {
             baseRate: number;
             extraAdultCharge: number;
             childCharge: number;
-            availabilityStart: Date;
-            availabilityEnd: Date;
             totalRoomsInProperty: number;
             uploadRoomImageUrls: string[];
         };
@@ -38,8 +38,8 @@ export declare class PropertyRoomsController {
         data: {
             amenities: string[];
             id: string;
-            userId: string;
             totalRooms: number;
+            userId: string;
             createdAt: Date;
             updatedAt: Date;
             roomTypeName: string;
@@ -49,6 +49,8 @@ export declare class PropertyRoomsController {
             roomView: string;
             smokingAllowed: boolean;
             extraBedAllowed: boolean;
+            availabilityStart: Date;
+            availabilityEnd: Date;
             baseAdult: number;
             maxAdult: number;
             maxChildren: number;
@@ -56,8 +58,6 @@ export declare class PropertyRoomsController {
             baseRate: number;
             extraAdultCharge: number;
             childCharge: number;
-            availabilityStart: Date;
-            availabilityEnd: Date;
             totalRoomsInProperty: number;
             uploadRoomImageUrls: string[];
         }[];

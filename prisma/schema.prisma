@@ -94,8 +94,8 @@ model Connectivity {
   userId                    String   @unique
   channelManagerUsed        Boolean
   connectedWithTravelAgency Boolean
-  channelManagerName        String
-  travelAgencyName          String
+  channelManagerName        String?
+  travelAgencyName          String?
   createdAt                 DateTime @default(now())
   updatedAt                 DateTime @updatedAt
 
@@ -170,14 +170,15 @@ model PropertyRules {
   userId       String   @unique
   coupleRule   String
   guestRule    String
-  identityRule String
+  otherRule    String
   petRule      String
+  checkInTime  String   // <-- Add this
+  checkOutTime String   // <-- And this
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
   user         User     @relation(fields: [userId], references: [id])
 }
-
 model PropertyStatus {
   id        String   @id @default(uuid())
   userId    String   @unique

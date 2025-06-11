@@ -7,24 +7,28 @@ export declare class PropertyRulesController {
         data: {
             id: string;
             userId: string;
-            createdAt: Date;
-            updatedAt: Date;
             coupleRule: string;
             guestRule: string;
-            identityRule: string;
+            otherRule: string;
             petRule: string;
+            checkInTime: string;
+            checkOutTime: string;
+            createdAt: Date;
+            updatedAt: Date;
         };
     }>;
     getByUser(userId: string): Promise<{
         data: {
             id: string;
             userId: string;
-            createdAt: Date;
-            updatedAt: Date;
             coupleRule: string;
             guestRule: string;
-            identityRule: string;
+            otherRule: string;
             petRule: string;
+            checkInTime: string;
+            checkOutTime: string;
+            createdAt: Date;
+            updatedAt: Date;
         };
     }>;
 }

@@ -32,13 +32,25 @@ __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreatePropertyRulesDto.prototype, "identityRule", void 0);
+], CreatePropertyRulesDto.prototype, "otherRule", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreatePropertyRulesDto.prototype, "petRule", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreatePropertyRulesDto.prototype, "checkInTime", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreatePropertyRulesDto.prototype, "checkOutTime", void 0);
 class UpdatePropertyRulesDto extends CreatePropertyRulesDto {
 }
 exports.UpdatePropertyRulesDto = UpdatePropertyRulesDto;

@@ -9,10 +9,10 @@ export declare class PropertyUspService {
         createdAt: Date;
         updatedAt: Date;
         ageOfProperty: number;
-        historicalEventAvailable: boolean;
-        historicalEventDesc: string | null;
         propertyOwnerDescription: string;
         nearbyPlaces: string[];
+        historicalEventAvailable: boolean;
+        historicalEventDesc: string | null;
     }>;
     getByUser(userId: string): Promise<{
         id: string;
@@ -20,9 +20,9 @@ export declare class PropertyUspService {
         createdAt: Date;
         updatedAt: Date;
         ageOfProperty: number;
-        historicalEventAvailable: boolean;
-        historicalEventDesc: string | null;
         propertyOwnerDescription: string;
         nearbyPlaces: string[];
+        historicalEventAvailable: boolean;
+        historicalEventDesc: string | null;
     }>;
 }

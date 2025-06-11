@@ -1,9 +1,13 @@
-// src/property/rules/property-rules.controller.ts
-
 import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { PropertyRulesService } from './property-rules.service';
 import { CreatePropertyRulesDto } from './dto/property-rules.dto';
-import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiBody,
+} from '@nestjs/swagger';
 import { UserId } from '../../common/decorators/user.decorator';
 
 @ApiTags('Property Rules')
@@ -14,6 +18,7 @@ export class PropertyRulesController {
 
   @Post()
   @ApiOperation({ summary: 'Create or update property rules' })
+  @ApiBody({ type: CreatePropertyRulesDto })
   @ApiResponse({ status: 201, description: 'Property rules created/updated.' })
   async create(
     @UserId() userId: string,

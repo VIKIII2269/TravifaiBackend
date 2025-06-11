@@ -5,7 +5,6 @@ export declare class PropertyInfoService {
     constructor(prisma: PrismaService);
     createOrUpdate(userId: string, dto: CreatePropertyInfoDto, introVideoUrl?: string): Promise<{
         id: string;
-        userId: string;
         hotelName: string;
         businessOwnerName: string;
         designation: string;
@@ -27,13 +26,13 @@ export declare class PropertyInfoService {
         totalRooms: number;
         registerOnOTAs: boolean;
         commissionPercentToOTAs: number | null;
+        userId: string;
         uploadIntroVideoUrl: string | null;
         createdAt: Date;
         updatedAt: Date;
     }>;
     getByUser(userId: string): Promise<{
         id: string;
-        userId: string;
         hotelName: string;
         businessOwnerName: string;
         designation: string;
@@ -55,6 +54,7 @@ export declare class PropertyInfoService {
         totalRooms: number;
         registerOnOTAs: boolean;
         commissionPercentToOTAs: number | null;
+        userId: string;
         uploadIntroVideoUrl: string | null;
         createdAt: Date;
         updatedAt: Date;

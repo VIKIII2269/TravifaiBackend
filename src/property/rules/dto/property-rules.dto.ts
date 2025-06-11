@@ -1,5 +1,3 @@
-// src/property/rules/dto/property-rules.dto.ts
-
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty } from 'class-validator';
 
@@ -17,12 +15,22 @@ export class CreatePropertyRulesDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  identityRule: string;
+  otherRule: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
   petRule: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  checkInTime: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  checkOutTime: string;
 }
 
 export class UpdatePropertyRulesDto extends CreatePropertyRulesDto {}

@@ -1,8 +1,10 @@
 export declare class CreatePropertyRulesDto {
     coupleRule: string;
     guestRule: string;
-    identityRule: string;
+    otherRule: string;
     petRule: string;
+    checkInTime: string;
+    checkOutTime: string;
 }
 export declare class UpdatePropertyRulesDto extends CreatePropertyRulesDto {
 }
