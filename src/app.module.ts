@@ -18,7 +18,7 @@ import { PropertySubmitModule } from './property/submit/property-submit.module';
 
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard'; // Already implemented in your code
-
+import { ReelsModule } from './property/reels/reels.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -34,6 +34,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard'; // Already implemented in 
     PropertyRulesModule,
     PropertyStatusModule,
     PropertySubmitModule,
+    ReelsModule,
   ],
   providers: [
     {
