@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma.service';
 import { CreatePropertyRulesDto } from './dto/property-rules.dto';
+import { UpdatePropertyRulesDto } from './dto/update-property-riles.dto';
 
 @Injectable()
 export class PropertyRulesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async createOrUpdate(userId: string, dto: CreatePropertyRulesDto) {
     const existing = await this.prisma.propertyRules.findUnique({ where: { userId } });
@@ -26,7 +27,7 @@ export class PropertyRulesService {
       });
     }
 
-    return this.prisma.propertyRules.create({data});
+    return this.prisma.propertyRules.create({ data });
   }
 
   async getByUser(userId: string) {
@@ -36,4 +37,12 @@ export class PropertyRulesService {
     }
     return record;
   }
+
+  async update(userId: string, dto: UpdatePropertyRulesDto) {
+    return this.prisma.propertyRules.update({
+      where: { userId },
+      data: dto,
+    });
+  }
+
 }

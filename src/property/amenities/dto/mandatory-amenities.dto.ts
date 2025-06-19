@@ -52,5 +52,3 @@ export class CreateMandatoryAmenitiesDto {
   @IsBoolean()
   bar: boolean;
 }
-
-export class UpdateMandatoryAmenitiesDto extends CreateMandatoryAmenitiesDto {}

@@ -3,10 +3,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma.service';
 import { CreateAmenitiesDto } from './dto/amenities.dto';
+import { UpdateAmenitiesDto } from './dto/update-amentities.dto';
 
 @Injectable()
 export class AmenitiesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async createOrUpdate(userId: string, dto: CreateAmenitiesDto) {
     const existing = await this.prisma.amenities.findUnique({ where: { userId } });
@@ -40,4 +41,12 @@ export class AmenitiesService {
     }
     return record;
   }
+
+  async update(userId: string, dto: UpdateAmenitiesDto) {
+    return this.prisma.amenities.update({
+      where: { userId },
+      data: dto,
+    });
+  }
+
 }

@@ -39,4 +39,3 @@ export class CreatePropertyUspDto {
   nearbyPlaces: string[];
 }
 
-export class UpdatePropertyUspDto extends CreatePropertyUspDto {}

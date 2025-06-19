@@ -105,4 +105,3 @@ export class CreatePropertyInfoDto {
 }
 
 
-export class UpdatePropertyInfoDto extends CreatePropertyInfoDto {}

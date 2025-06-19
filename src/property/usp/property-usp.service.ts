@@ -3,10 +3,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma.service';
 import { CreatePropertyUspDto } from './dto/property-usp.dto';
+import { UpdatePropertyUspDto } from './dto/update-property-usp.dto';
 
 @Injectable()
 export class PropertyUspService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async createOrUpdate(userId: string, dto: CreatePropertyUspDto) {
     const existing = await this.prisma.propertyUSP.findUnique({ where: { userId } });
@@ -32,8 +33,15 @@ export class PropertyUspService {
   async getByUser(userId: string) {
     const record = await this.prisma.propertyUSP.findUnique({ where: { userId } });
     if (!record) {
-      throw new NotFoundException('Property USP not found');
+      throw new NotFoundException('Property USP not found');  
     }
     return record;
+  }
+
+  async update(userId: string, dto: UpdatePropertyUspDto) {
+    return this.prisma.propertyUSP.update({
+      where: { userId },
+      data: dto,
+    });
   }
 }

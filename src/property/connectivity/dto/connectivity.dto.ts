@@ -21,4 +21,3 @@ export class CreateConnectivityDto {
   travelAgencyName:string;
 }
 
-export class UpdateConnectivityDto extends CreateConnectivityDto {}

@@ -50,4 +50,3 @@ export class CreateAmenitiesDto {
   beautyAndSpa: string[];
 }
 
-export class UpdateAmenitiesDto extends CreateAmenitiesDto {}

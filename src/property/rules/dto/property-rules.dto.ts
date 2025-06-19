@@ -33,4 +33,3 @@ export class CreatePropertyRulesDto {
   checkOutTime: string;
 }
 
-export class UpdatePropertyRulesDto extends CreatePropertyRulesDto {}

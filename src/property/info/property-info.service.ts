@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma.service';
 import { CreatePropertyInfoDto } from './dto/property-info.dto';
+import { UpdatePropertyInfoDto } from './dto/update-property-info.dto';
 
 @Injectable()
 export class PropertyInfoService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async createOrUpdate(userId: string, dto: CreatePropertyInfoDto, introVideoUrl?: string) {
     const existing = await this.prisma.propertyInfo.findUnique({ where: { userId } });
@@ -52,5 +53,17 @@ export class PropertyInfoService {
       throw new NotFoundException('Property info not found');
     }
     return record;
+  }
+  
+  async updatePropertyInfo(userId: string, dto: UpdatePropertyInfoDto, videoUrl?: string) {
+    const updateData = {
+      ...dto,
+      ...(videoUrl && { introVideoUrl: videoUrl }),
+    };
+
+    return this.prisma.propertyInfo.update({
+      where: { userId },
+      data: updateData,
+    });
   }
 }
