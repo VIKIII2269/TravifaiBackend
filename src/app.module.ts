@@ -18,6 +18,7 @@ import { PropertySubmitModule } from './property/submit/property-submit.module';
 
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard'; // Already implemented in your code
+import { ReelsModule } from './property/reels/reels.module';
 import { SearchModule } from './users/search/search.module';
 
 @Module({
@@ -35,6 +36,7 @@ import { SearchModule } from './users/search/search.module';
     PropertyRulesModule,
     PropertyStatusModule,
     PropertySubmitModule,
+    ReelsModule,
     SearchModule,
   ],
   providers: [

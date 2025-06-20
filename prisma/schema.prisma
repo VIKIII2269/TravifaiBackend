@@ -29,6 +29,32 @@
       status             PropertyStatus?
     }
 
+// model PropertyInfo {
+//   id                      String   @id @default(uuid())
+//   userId                  String   @unique
+//   hotelName               String
+//   businessOwnerName       String
+//   designation             String
+//   contact1Phone           String
+//   contact1Email           String
+//   contact1Landline        String?
+//   contact2Phone           String?
+//   contact2Email           String?
+//   contact2Landline        String?
+//   locationLocality        String
+//   locationStreet          String
+//   locationCity            String
+//   locationState           String
+//   locationCountry         String
+//   locationPincode         String
+//   propertyType            String
+//   propertyRelationship    String
+//   onLease                 Boolean
+//   totalRooms              Int
+//   registerOnOTAs          Boolean
+//   commissionPercentToOTAs Float?
+//   createdAt               DateTime @default(now())
+//   updatedAt               DateTime @updatedAt
     model PropertyInfo {
       id                      String   @id @default(uuid())
       userId                  String   @unique
@@ -57,8 +83,9 @@
       createdAt               DateTime @default(now())
       updatedAt               DateTime @updatedAt
 
-      user                    User     @relation(fields: [userId], references: [id])
-    }
+  user                    User     @relation(fields: [userId], references: [id])
+  videos                  HotelVideo[]
+}
 
     model PropertyRoom {
       id                   String   @id @default(uuid())
@@ -186,5 +213,16 @@
       createdAt DateTime @default(now())
       updatedAt DateTime @updatedAt
 
-      user      User     @relation(fields: [userId], references: [id])
-    }
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model HotelVideo {
+  id         String       @id @default(uuid())
+  propertyId String                              
+  videoUrl   String
+  createdAt  DateTime     @default(now())
+
+  property   PropertyInfo @relation(fields: [propertyId], references: [id])
+}
+    //   user      User     @relation(fields: [userId], references: [id])
+    // }
