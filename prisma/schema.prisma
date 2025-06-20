@@ -53,11 +53,11 @@ model PropertyInfo {
   totalRooms              Int
   registerOnOTAs          Boolean
   commissionPercentToOTAs Float?
-  uploadIntroVideoUrl     String?
   createdAt               DateTime @default(now())
   updatedAt               DateTime @updatedAt
 
   user                    User     @relation(fields: [userId], references: [id])
+  videos                  HotelVideo[]
 }
 
 model PropertyRoom {
@@ -187,4 +187,13 @@ model PropertyStatus {
   updatedAt DateTime @updatedAt
 
   user      User     @relation(fields: [userId], references: [id])
+}
+
+model HotelVideo {
+  id         String       @id @default(uuid())
+  propertyId String                              
+  videoUrl   String
+  createdAt  DateTime     @default(now())
+
+  property   PropertyInfo @relation(fields: [propertyId], references: [id])
 }

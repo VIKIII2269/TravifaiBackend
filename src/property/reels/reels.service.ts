@@ -9,9 +9,9 @@ export class ReelsService {
     private readonly prisma: PrismaService,
   ) {}
 
-  async uploadHotelVideo(file: Express.Multer.File, Id: string) {
+  async uploadHotelVideo(file: Express.Multer.File, userId: string) {
     const hotel = await this.prisma.propertyInfo.findUnique({
-      where: { userId: Id },
+      where: { userId },
     });
 
     if (!hotel) throw new NotFoundException('Hotel not found');
@@ -22,32 +22,40 @@ export class ReelsService {
       'hotel_reels',
     );
 
-    await this.prisma.propertyInfo.update({
-      where: { userId: Id },
-      data: { uploadIntroVideoUrl: videoUrl }, // ✅ updated field name
+    const video = await this.prisma.hotelVideo.create({
+      data: {
+        propertyId: hotel.id,
+        videoUrl,
+      },
     });
 
-    return { message: 'Video uploaded', videoUrl };
+    return { message: 'Video uploaded successfully', video };
   }
-  async getHotelWithVideo(Id: string) {
+
+  async getHotelVideos(propertyId: string) {
     const hotel = await this.prisma.propertyInfo.findUnique({
-        where: { userId: Id },
-        select: {
-        id: true,
-        hotelName: true,
-        uploadIntroVideoUrl: true,
-        },
+      where: { id: propertyId },
     });
 
     if (!hotel) throw new NotFoundException('Hotel not found');
 
-    if (!hotel.uploadIntroVideoUrl) {
-        return {
-        ...hotel,
-        message: 'Intro video not uploaded yet',
-        };
+    const videos = await this.prisma.hotelVideo.findMany({
+      where: { propertyId },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    if (!videos.length) {
+      return {
+        propertyId,
+        hotelName: hotel.hotelName,
+        message: 'No videos uploaded yet',
+      };
     }
 
-    return hotel;
-    }
+    return {
+      propertyId,
+      hotelName: hotel.hotelName,
+      videos,
+    };
+  }
 }
