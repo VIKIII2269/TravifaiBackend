@@ -1,0 +1,383 @@
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+
+async function main() {
+    await Promise.all([
+        prisma.document.deleteMany(),
+        prisma.propertyRoom.deleteMany(),
+        prisma.propertyInfo.deleteMany(),
+        prisma.connectivity.deleteMany(),
+        prisma.propertyUSP.deleteMany(),
+        prisma.amenities.deleteMany(),
+        prisma.mandatoryAmenities.deleteMany(),
+        prisma.propertyRules.deleteMany(),
+        prisma.propertyStatus.deleteMany(),
+    ]);
+
+    await prisma.user.deleteMany();
+
+    const usersData = [
+        {
+            id: 'user-uuid-001',
+            email: 'user1@example.com',
+            password: 'hashed_pass_1',
+            phone: '1111111111',
+            username: 'user1',
+            propertyInfo: {
+                create: {
+                    hotelName: 'Hotel Sunrise',
+                    businessOwnerName: 'Amit Verma',
+                    designation: 'Owner',
+                    contact1Phone: '9999999999',
+                    contact1Email: 'amit@sunrise.com',
+                    locationLocality: 'Connaught Place',
+                    locationStreet: 'Main Rd',
+                    locationCity: 'Delhi',
+                    locationState: 'Delhi',
+                    locationCountry: 'India',
+                    locationPincode: '110001',
+                    propertyType: 'Hotel',
+                    propertyRelationship: 'Owner',
+                    onLease: false,
+                    totalRooms: 25,
+                    registerOnOTAs: true,
+                    commissionPercentToOTAs: 15.0,
+                    uploadIntroVideoUrl: 'https://video.example.com/hotel1.mp4',
+                },
+            },
+            propertyRooms: {
+                create: [
+                    {
+                        roomTypeName: 'Deluxe King',
+                        floorNumber: 1,
+                        totalRooms: 10,
+                        roomType: 'Deluxe',
+                        bedType: 'King',
+                        roomView: 'City',
+                        smokingAllowed: true,
+                        extraBedAllowed: true,
+                        amenities: ['WiFi', 'TV', 'AC'],
+                        baseAdult: 2,
+                        maxAdult: 3,
+                        maxChildren: 2,
+                        maxOccupancy: 5,
+                        baseRate: 3500,
+                        extraAdultCharge: 600,
+                        childCharge: 400,
+                        availabilityStart: '2025-06-01',
+                        availabilityEnd: '2025-12-31',
+                        totalRoomsInProperty: 25,
+                        uploadRoomImageUrls: ['https://img.example.com/room1.jpg'],
+                    },
+                ],
+            },
+            connectivity: {
+                create: {
+                    channelManagerUsed: true,
+                    connectedWithTravelAgency: true,
+                    channelManagerName: 'OYO Partner',
+                    travelAgencyName: 'Yatra',
+                },
+            },
+            usp: {
+                create: {
+                    ageOfProperty: 8,
+                    historicalEventAvailable: true,
+                    historicalEventDesc: 'Site of Independence event',
+                    propertyOwnerDescription: 'A heritage-style luxury hotel in Delhi',
+                    nearbyPlaces: ['India Gate', 'Red Fort', 'Jama Masjid'],
+                },
+            },
+            amenities: {
+                create: {
+                    mandatory: ['WiFi', 'AC'],
+                    basicFacilities: ['Power Backup', 'Elevator'],
+                    generalServices: ['Reception', '24x7 Security'],
+                    outdoorActivities: ['Garden'],
+                    commonAreas: ['Lobby'],
+                    foodAndDrink: ['Buffet', 'Coffee Shop'],
+                    healthWellness: ['Gym'],
+                    businessCenter: ['Meeting Room'],
+                    beautyAndSpa: ['Spa'],
+                },
+            },
+            mandatoryAmenities: {
+                create: {
+                    airConditioning: true,
+                    laundry: false,
+                    newspaper: true,
+                    parking: true,
+                    roomService: true,
+                    smokeDetector: true,
+                    smokingRooms: false,
+                    swimmingPools: false,
+                    wifi: true,
+                    lounge: true,
+                    reception: true,
+                    bar: false,
+                },
+            },
+            rules: {
+                create: {
+                    coupleRule: 'Allowed',
+                    guestRule: 'Only ID holders allowed',
+                    otherRule: 'No alcohol',
+                    petRule: 'Pets not allowed',
+                    checkInTime: '12:00',
+                    checkOutTime: '11:00',
+                },
+            },
+            status: {
+                create: {
+                    status: 'submitted',
+                },
+            },
+            documents: {
+                create: [
+                    {
+                        category: 'PAN Card',
+                        fileUrl: 'https://docs.example.com/pan1.pdf',
+                    },
+                ],
+            },
+        },
+        {
+            id: 'user-uuid-002',
+            email: 'user2@example.com',
+            password: 'hashed_pass_2',
+            phone: '2222222222',
+            username: 'user2',
+            propertyInfo: {
+                create: {
+                    hotelName: 'Green Valley Resort',
+                    businessOwnerName: 'Neha Singh',
+                    designation: 'Manager',
+                    contact1Phone: '8888888888',
+                    contact1Email: 'neha@greenvalley.com',
+                    locationLocality: 'MG Road',
+                    locationStreet: '5th Cross',
+                    locationCity: 'Bangalore',
+                    locationState: 'Karnataka',
+                    locationCountry: 'India',
+                    locationPincode: '560001',
+                    propertyType: 'Resort',
+                    propertyRelationship: 'Manager',
+                    onLease: true,
+                    totalRooms: 40,
+                    registerOnOTAs: true,
+                    commissionPercentToOTAs: 12.5,
+                    uploadIntroVideoUrl: 'https://video.example.com/hotel2.mp4',
+                },
+            },
+            propertyRooms: {
+                create: [
+                    {
+                        roomTypeName: 'Garden View Suite',
+                        floorNumber: 1,
+                        totalRooms: 5,
+                        roomType: 'Suite',
+                        bedType: 'King',
+                        roomView: 'Garden',
+                        smokingAllowed: false,
+                        extraBedAllowed: false,
+                        amenities: ['WiFi', 'Mini Bar'],
+                        baseAdult: 2,
+                        maxAdult: 2,
+                        maxChildren: 1,
+                        maxOccupancy: 3,
+                        baseRate: 6000,
+                        extraAdultCharge: 0,
+                        childCharge: 500,
+                        availabilityStart: '2025-06-10',
+                        availabilityEnd: '2025-12-31',
+                        totalRoomsInProperty: 40,
+                        uploadRoomImageUrls: ['https://img.example.com/room2.jpg'],
+                    },
+                ],
+            },
+            connectivity: {
+                create: {
+                    channelManagerUsed: false,
+                    connectedWithTravelAgency: false,
+                },
+            },
+            usp: {
+                create: {
+                    ageOfProperty: 5,
+                    historicalEventAvailable: false,
+                    propertyOwnerDescription: 'Eco-friendly resort with nature trails',
+                    nearbyPlaces: ['Cubbon Park', 'Lalbagh', 'UB City'],
+                },
+            },
+            amenities: {
+                create: {
+                    mandatory: ['WiFi'],
+                    basicFacilities: ['Parking'],
+                    generalServices: ['24x7 Security'],
+                    outdoorActivities: ['Nature Trail'],
+                    commonAreas: ['Dining Hall'],
+                    foodAndDrink: ['Organic Meals'],
+                    healthWellness: ['Yoga Room'],
+                    businessCenter: [],
+                    beautyAndSpa: [],
+                },
+            },
+            mandatoryAmenities: {
+                create: {
+                    airConditioning: false,
+                    laundry: true,
+                    newspaper: false,
+                    parking: true,
+                    roomService: false,
+                    smokeDetector: true,
+                    smokingRooms: false,
+                    swimmingPools: false,
+                    wifi: true,
+                    lounge: false,
+                    reception: true,
+                    bar: false,
+                },
+            },
+            rules: {
+                create: {
+                    coupleRule: 'Allowed',
+                    guestRule: 'Only family',
+                    otherRule: 'Quiet hours after 9 PM',
+                    petRule: 'Pets allowed',
+                    checkInTime: '14:00',
+                    checkOutTime: '11:00',
+                },
+            },
+            status: {
+                create: {
+                    status: 'approved',
+                },
+            },
+        },
+        {
+            id: 'user-uuid-003',
+            email: 'user3@example.com',
+            password: 'hashed_pass_3',
+            phone: '3333333333',
+            username: 'user3',
+            propertyInfo: {
+                create: {
+                    hotelName: 'Ocean View Inn',
+                    businessOwnerName: 'Rajeev Nair',
+                    designation: 'Partner',
+                    contact1Phone: '7777777777',
+                    contact1Email: 'rajeev@oceanview.com',
+                    locationLocality: 'Marine Drive',
+                    locationStreet: 'Beach Road',
+                    locationCity: 'Mumbai',
+                    locationState: 'Maharashtra',
+                    locationCountry: 'India',
+                    locationPincode: '400001',
+                    propertyType: 'Guest House',
+                    propertyRelationship: 'Partner',
+                    onLease: false,
+                    totalRooms: 15,
+                    registerOnOTAs: true,
+                    commissionPercentToOTAs: 10.0,
+                    uploadIntroVideoUrl: 'https://video.example.com/hotel3.mp4',
+                },
+            },
+            propertyRooms: {
+                create: [
+                    {
+                        roomTypeName: 'Sea Facing Room',
+                        floorNumber: 3,
+                        totalRooms: 6,
+                        roomType: 'Standard',
+                        bedType: 'Queen',
+                        roomView: 'Sea',
+                        smokingAllowed: true,
+                        extraBedAllowed: true,
+                        amenities: ['WiFi', 'TV'],
+                        baseAdult: 2,
+                        maxAdult: 2,
+                        maxChildren: 2,
+                        maxOccupancy: 4,
+                        baseRate: 4000,
+                        extraAdultCharge: 700,
+                        childCharge: 300,
+                        availabilityStart: '2025-07-01',
+                        availabilityEnd: '2025-12-31',
+                        totalRoomsInProperty: 15,
+                        uploadRoomImageUrls: ['https://img.example.com/room3.jpg'],
+                    },
+                ],
+            },
+            connectivity: {
+                create: {
+                    channelManagerUsed: true,
+                    connectedWithTravelAgency: true,
+                    channelManagerName: 'Staah',
+                    travelAgencyName: 'Goibibo',
+                },
+            },
+            usp: {
+                create: {
+                    ageOfProperty: 3,
+                    historicalEventAvailable: false,
+                    propertyOwnerDescription: 'Located on the beachfront with stunning views',
+                    nearbyPlaces: ['Gateway of India', 'Marine Drive', 'Colaba Causeway'],
+                },
+            },
+            amenities: {
+                create: {
+                    mandatory: ['WiFi', 'AC'],
+                    basicFacilities: ['Elevator'],
+                    generalServices: ['Front Desk'],
+                    outdoorActivities: ['Beach Access'],
+                    commonAreas: ['Terrace'],
+                    foodAndDrink: ['Breakfast Included'],
+                    healthWellness: [],
+                    businessCenter: [],
+                    beautyAndSpa: [],
+                },
+            },
+            mandatoryAmenities: {
+                create: {
+                    airConditioning: true,
+                    laundry: true,
+                    newspaper: false,
+                    parking: false,
+                    roomService: true,
+                    smokeDetector: true,
+                    smokingRooms: true,
+                    swimmingPools: false,
+                    wifi: true,
+                    lounge: false,
+                    reception: true,
+                    bar: false,
+                },
+            },
+            rules: {
+                create: {
+                    coupleRule: 'Allowed with ID',
+                    guestRule: 'Max 2 visitors per room',
+                    otherRule: 'No outside food',
+                    petRule: 'No pets',
+                    checkInTime: '13:00',
+                    checkOutTime: '12:00',
+                },
+            },
+            status: {
+                create: {
+                    status: 'submitted',
+                },
+            },
+        },
+    ];
+
+    for (const userData of usersData) {
+        await prisma.user.create({ data: userData });
+    }
+
+    console.log('🌱 Seeded multiple users and properties successfully.');
+}
+
+main()
+    .catch((e) => console.error(e))
+    .finally(() => prisma.$disconnect());
