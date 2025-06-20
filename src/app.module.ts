@@ -20,6 +20,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard'; // Already implemented in your code
 import { ReelsModule } from './property/reels/reels.module';
 import { SearchModule } from './users/search/search.module';
+import { HomepageModule } from './home/homepage/homepage.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { SearchModule } from './users/search/search.module';
     PropertySubmitModule,
     ReelsModule,
     SearchModule,
+    HomepageModule,
   ],
   providers: [
     {
