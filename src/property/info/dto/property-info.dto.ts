@@ -101,7 +101,7 @@ export class CreatePropertyInfoDto {
 
   @ApiPropertyOptional({ type: 'string', format: 'binary' })
   @IsOptional()
-  uploadIntroVideo?: any;
+  uploadIntroVideoUrl?: any;
 }
 
 

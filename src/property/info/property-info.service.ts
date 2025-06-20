@@ -58,7 +58,7 @@ export class PropertyInfoService {
   async updatePropertyInfo(userId: string, dto: UpdatePropertyInfoDto, videoUrl?: string) {
     const updateData = {
       ...dto,
-      ...(videoUrl && { introVideoUrl: videoUrl }),
+      ...(videoUrl && { uploadIntroVideoUrl: videoUrl }),
     };
 
     return this.prisma.propertyInfo.update({

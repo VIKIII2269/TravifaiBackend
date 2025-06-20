@@ -7,12 +7,14 @@
   "scripts": {
     "start": "nest start",
     "start:dev": "nest start --watch",
-    
-  "build": "node --max-old-space-size=4096 ./node_modules/.bin/nest build",
+    "build": "node --max-old-space-size=4096 ./node_modules/.bin/nest build",
     "start:prod": "node dist/main.js",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\" --fix",
     "test": "jest"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

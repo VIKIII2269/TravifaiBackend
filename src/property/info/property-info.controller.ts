@@ -36,7 +36,7 @@ export class PropertyInfoController {
   @Post()
   @ApiOperation({ summary: 'Create or update property information' })
   @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FileInterceptor('uploadIntroVideo'))
+  @UseInterceptors(FileInterceptor('uploadIntroVideoUrl'))
   @ApiResponse({ status: 201, description: 'Property info created/updated.' })
   async create(
     @UserId() userId: string,
@@ -72,7 +72,7 @@ export class PropertyInfoController {
   @Patch(':userId')
   @ApiOperation({ summary: 'Update property information (partial)' })
   @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FileInterceptor('uploadIntroVideo'))
+  @UseInterceptors(FileInterceptor('uploadIntroVideoUrl'))
   async update(
     @Param('userId') userId: string,
     @Body() updateDto: UpdatePropertyInfoDto,

@@ -50,7 +50,7 @@ export class PropertyRoomsService {
       where: { id: roomId },
       data: {
         ...dto,
-        ...(imageUrls?.length ? { roomImages: imageUrls } : {}),
+        uploadRoomImageUrls: imageUrls || [],
       },
     });
   }
