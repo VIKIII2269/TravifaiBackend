@@ -1,4 +1,3 @@
-// property-info.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsBoolean,
@@ -75,6 +74,14 @@ export class CreatePropertyInfoDto {
   locationPincode!: string;
 
   @ApiProperty()
+  @IsNumber()
+  locationLatitude!: number;
+
+  @ApiProperty()
+  @IsNumber()
+  locationLongitude!: number;
+
+  @ApiProperty()
   @IsString()
   propertyType!: string;
 
@@ -103,5 +110,3 @@ export class CreatePropertyInfoDto {
   @IsOptional()
   uploadIntroVideoUrl?: any;
 }
-
-

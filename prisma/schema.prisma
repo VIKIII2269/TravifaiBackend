@@ -15,6 +15,7 @@
       password          String
       phone             String            @unique
       username          String            @unique
+      role              String            @default("USER")
       // (Any other user‐profile fields you might have)
       
       // Relations for the property registration modules:
@@ -27,34 +28,9 @@
       documents          Document[]
       rules              PropertyRules?
       status             PropertyStatus?
+      subscription       Subscription?
     }
 
-// model PropertyInfo {
-//   id                      String   @id @default(uuid())
-//   userId                  String   @unique
-//   hotelName               String
-//   businessOwnerName       String
-//   designation             String
-//   contact1Phone           String
-//   contact1Email           String
-//   contact1Landline        String?
-//   contact2Phone           String?
-//   contact2Email           String?
-//   contact2Landline        String?
-//   locationLocality        String
-//   locationStreet          String
-//   locationCity            String
-//   locationState           String
-//   locationCountry         String
-//   locationPincode         String
-//   propertyType            String
-//   propertyRelationship    String
-//   onLease                 Boolean
-//   totalRooms              Int
-//   registerOnOTAs          Boolean
-//   commissionPercentToOTAs Float?
-//   createdAt               DateTime @default(now())
-//   updatedAt               DateTime @updatedAt
     model PropertyInfo {
       id                      String   @id @default(uuid())
       userId                  String   @unique
@@ -73,6 +49,8 @@
       locationState           String
       locationCountry         String
       locationPincode         String
+      locationLatitude        Float? // ✅ newly added
+      locationLongitude       Float? // ✅ newly added
       propertyType            String
       propertyRelationship    String
       onLease                 Boolean
@@ -127,6 +105,20 @@
       updatedAt                 DateTime @updatedAt
 
       user                      User     @relation(fields: [userId], references: [id])
+    }
+
+    model Subscription {
+      id          String   @id @default(uuid())
+      userId      String   @unique
+      hotelId     String   @unique
+      submitted   Boolean  @default(false)
+      approved    Boolean  @default(false)
+      subscribed  Boolean  @default(false)
+      recommended Boolean  @default(false)
+      createdAt   DateTime @default(now())
+      updatedAt   DateTime @updatedAt
+
+      user User @relation(fields: [userId], references: [id])
     }
 
     model PropertyUSP {

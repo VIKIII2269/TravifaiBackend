@@ -3,6 +3,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
+  isNotEmpty,
   IsNotEmpty,
   IsPhoneNumber,
   IsString,
@@ -29,6 +30,10 @@ export class SignupDto {
   @IsNotEmpty()
   @Length(3, 30)
   username: string;
+
+  @ApiProperty({ example: 'hotelier'})
+  @IsString()
+  role: string;
 }
 
 export class LoginDto {

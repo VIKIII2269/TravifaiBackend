@@ -21,6 +21,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard'; // Already implemented in 
 import { ReelsModule } from './property/reels/reels.module';
 import { SearchModule } from './users/search/search.module';
 import { HomepageModule } from './home/homepage/homepage.module';
+import { SubscriptionModule } from './property/subscription/subscription.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { HomepageModule } from './home/homepage/homepage.module';
     ReelsModule,
     SearchModule,
     HomepageModule,
+    SubscriptionModule,
   ],
   providers: [
     {
