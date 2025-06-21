@@ -4,13 +4,19 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma.service';
 import { CreatePropertyRoomDto } from './dto/property-room.dto';
 import { UpdatePropertyRoomDto } from './dto/update-property-room.dto';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class PropertyRoomsService {
   constructor(private readonly prisma: PrismaService) { }
 
-  async create(userId: string, dto: CreatePropertyRoomDto, imageUrls: string[]) {
-    return this.prisma.propertyRoom.create({
+  async create(
+    userId: string,
+    dto: CreatePropertyRoomDto,
+    imageUrls: string[],
+    tx: Prisma.TransactionClient = this.prisma,
+  ) {
+    return tx.propertyRoom.create({
       data: {
         userId,
         roomTypeName: dto.roomTypeName,
@@ -45,14 +51,15 @@ export class PropertyRoomsService {
     return rooms;
   }
 
-  async update(roomId: string, dto: UpdatePropertyRoomDto, imageUrls?: string[]) {
-    return this.prisma.propertyRoom.update({
+  async update(roomId: string, dto: UpdatePropertyRoomDto, imageUrls?: string[], tx: Prisma.TransactionClient = this.prisma) {
+    const { uploadRoomImages, ...safeDto } = dto as any;
+
+    return tx.propertyRoom.update({
       where: { id: roomId },
       data: {
-        ...dto,
+        ...safeDto,
         uploadRoomImageUrls: imageUrls || [],
       },
     });
   }
-
 }

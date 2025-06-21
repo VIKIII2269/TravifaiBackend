@@ -1,9 +1,9 @@
 // src/subscription/subscription.controller.ts
 
 import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
 import { SubscriptionService } from './subscription.service';
-
+@ApiBearerAuth('JWT')
 @Controller('subscription')
 @ApiTags('Subscription')
 export class SubscriptionController {

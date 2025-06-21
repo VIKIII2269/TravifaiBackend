@@ -95,5 +95,5 @@ export class CreatePropertyRoomDto {
 
   @ApiProperty({ type: 'array', items: { type: 'string', format: 'binary' }, required: false })
   @IsOptional()
-  uploadRoomImages: any[];
+  uploadRoomImages: string[];
 }

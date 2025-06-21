@@ -11,6 +11,8 @@ import {
   HttpCode,
   HttpStatus,
   Patch,
+  InternalServerErrorException,
+  UploadedFile,
 } from '@nestjs/common';
 import { PropertyRoomsService } from './property-room.service';
 import { CreatePropertyRoomDto } from './dto/property-room.dto';
@@ -26,6 +28,8 @@ import {
 } from '@nestjs/swagger';
 import { UserId } from '../../common/decorators/user.decorator';
 import { plainToInstance } from 'class-transformer';
+import { PrismaService } from 'src/prisma.service';
+import { UploadDocumentDto } from '../documents/dto/documents.dto';
 
 @ApiTags('Property Rooms')
 @ApiBearerAuth('JWT')
@@ -34,6 +38,7 @@ export class PropertyRoomsController {
   constructor(
     private readonly propertyRoomsService: PropertyRoomsService,
     private readonly s3Service: S3Service,
+    private readonly prisma: PrismaService,
   ) { }
 
   @Post()
@@ -108,16 +113,25 @@ export class PropertyRoomsController {
     const createDto = plainToInstance(CreatePropertyRoomDto, body);
 
     let imageUrls: string[] = [];
-    if (files?.uploadRoomImages?.length) {
-      const uploads = await Promise.all(
-        files.uploadRoomImages.map((file) =>
-          this.s3Service.uploadFile(file.buffer, file.originalname, 'room-images'),
-        ),
-      );
-      imageUrls = uploads;
+    if (files?.uploadRoomImages?.length) {  // if it is more than 1
+      try {
+        const validFormats = ['image/jpeg', 'image/png', 'image/webp'];
+        const validFiles = files.uploadRoomImages.filter(file => validFormats.includes(file.mimetype));
+
+        const uploads = await Promise.allSettled(
+          validFiles.map(file => this.s3Service.uploadFile(file.buffer, file.originalname, 'room-images')),
+        );
+
+        imageUrls = uploads.filter(r => r.status === 'fulfilled').map((r: any) => r.value);
+      } catch (err) {
+        throw new InternalServerErrorException('Image upload failed');
+      }
     }
 
-    const result = await this.propertyRoomsService.create(userId, createDto, imageUrls);
+    // const result = await this.propertyRoomsService.create(userId, createDto, imageUrls);
+    const result = await this.prisma.$transaction(async (tx) => {
+      return this.propertyRoomsService.create(userId, createDto, imageUrls, tx);
+    });
     return { data: result };
   }
 
@@ -205,15 +219,28 @@ export class PropertyRoomsController {
 
     let imageUrls: string[] = [];
     if (files?.uploadRoomImages?.length) {
-      const uploads = await Promise.all(
-        files.uploadRoomImages.map((file) =>
-          this.s3Service.uploadFile(file.buffer, file.originalname, 'room-images'),
-        ),
+      const validFormats = ['image/jpeg', 'image/png', 'image/webp'];
+      // const validFiles = files.uploadRoomImages.filter(file => validFormats.includes(file.mimetype));
+
+      const validExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
+      const validFiles = await files.uploadRoomImages.filter(file => {
+        const mimetypeValid = validFormats.includes(file.mimetype);
+        const nameValid = validExtensions.some(ext => file.originalname.toLowerCase().endsWith(ext));
+        return mimetypeValid || nameValid;
+      });
+
+      console.log(validFiles.length);
+
+      const uploadResults = await Promise.allSettled(
+        validFiles.map(file => this.s3Service.uploadFile(file.buffer, file.originalname, 'room-images')),
       );
-      imageUrls = uploads;
+
+      imageUrls = uploadResults.filter(r => r.status === 'fulfilled').map((r: any) => r.value);
     }
 
-    const result = await this.propertyRoomsService.update(roomId, updateDto, imageUrls);
+    const result = await this.prisma.$transaction(async (tx) => {
+      return this.propertyRoomsService.update(roomId, updateDto, imageUrls, tx);
+    });
     return { data: result };
   }
 
