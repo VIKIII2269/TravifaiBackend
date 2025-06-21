@@ -29,13 +29,13 @@ export class FilterPropertiesDto {
   country?: string;
 
   @ApiPropertyOptional({ description: 'Check-in date (ISO 8601 format)' })
-  @IsDate()
+  @IsISO8601()
   @Type(() => Date)
   @IsOptional()
   checkIn: Date;
 
   @ApiPropertyOptional({ description: 'Check-out date (ISO 8601 format)' })
-  @IsDate()
+  @IsISO8601()
   @Type(() => Date)
   @IsOptional()
   checkOut: Date;
