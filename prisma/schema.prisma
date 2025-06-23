@@ -34,6 +34,7 @@
     model PropertyInfo {
       id                      String   @id @default(uuid())
       userId                  String   @unique
+      hotelId                 String   @unique
       hotelName               String
       businessOwnerName       String
       designation             String
@@ -118,8 +119,9 @@
       createdAt   DateTime @default(now())
       updatedAt   DateTime @updatedAt
 
-      user User @relation(fields: [userId], references: [id])
+      user        User     @relation(fields: [userId], references: [id])
     }
+
 
     model PropertyUSP {
       id                       String   @id @default(uuid())
