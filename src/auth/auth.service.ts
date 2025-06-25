@@ -38,7 +38,7 @@ export class AuthService {
   }
 
   async signup(dto: SignupDto) {
-    const { email, password, phone, username } = dto;
+    const { email, password, phone, username, role } = dto;
 
     const [existingByEmail, existingByPhone, existingByUsername] =
       await Promise.all([
@@ -65,7 +65,7 @@ export class AuthService {
         password: hashedPassword,
         phone,
         username,
-        role: 'USER',
+        role,
       },
     });
 
@@ -73,7 +73,7 @@ export class AuthService {
       sub: createdUser.id,
       email: createdUser.email,
     });
-    return { access_token: token };
+    return { access_token: token, userid: createdUser.id };
   }
 
   async login(dto: LoginDto) {
@@ -81,6 +81,11 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const userRole = user.role;
+    if (dto.role?.trim().toLowerCase() !== userRole?.trim().toLowerCase()) {
+      throw new UnauthorizedException('Mismatched roles');
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -92,7 +97,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
     });
-    return { access_token: token };
+    return { access_token: token, userId: user.id };
   }
 
   async forgotPassword(email: string) {

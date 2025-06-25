@@ -34,8 +34,8 @@ export class SignupDto {
   username: string;
 
   @ApiProperty({ example: 'hotelier'})
-  @IsString()
-  role: string;
+  @IsEnum(Role)
+  role: Role;
 }
 
 export class LoginDto {
