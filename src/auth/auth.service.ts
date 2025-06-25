@@ -73,7 +73,7 @@ export class AuthService {
       sub: createdUser.id,
       email: createdUser.email,
     });
-    return { access_token: token, userid: createdUser.id };
+    return { access_token: token, userid: createdUser.id, role:dto.role};
   }
 
   async login(dto: LoginDto) {
@@ -97,7 +97,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
     });
-    return { access_token: token, userId: user.id };
+    return { access_token: token, userId: user.id, role:user.role };
   }
 
   async forgotPassword(email: string) {

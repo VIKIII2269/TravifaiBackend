@@ -10,6 +10,7 @@ import {
   IsString,
   Length,
   MinLength,
+  Matches
 } from 'class-validator';
 import { Role } from "../enums/role.enum";
 
@@ -18,9 +19,13 @@ export class SignupDto {
   @IsEmail()
   email: string;
 
-  @ApiProperty({ example: 'veryStrongPassword123' })
+  @ApiProperty({ example: 'VeryStrong@123' })
   @IsString()
-  @MinLength(6)
+  @MinLength(8)
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, {
+    message:
+      'Password must be at least 8 characters long, and include uppercase, lowercase, number, and special character',
+  })
   password: string;
 
   @ApiProperty({ example: '+911234567890' })
