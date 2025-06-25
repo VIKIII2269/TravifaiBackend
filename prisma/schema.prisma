@@ -6,6 +6,10 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+enum Role {
+  TRAVELLER
+  HOTELIER
+}
 
 model User {
   id                String            @id @default(uuid())
@@ -13,7 +17,7 @@ model User {
   password          String
   phone             String            @unique
   username          String            @unique
-  role              String            @default("USER")
+  role              Role            @default(TRAVELLER)
 
   propertyInfo       PropertyInfo?
   propertyRooms      PropertyRoom[]

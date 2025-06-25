@@ -11,7 +11,7 @@ import {
   Length,
   MinLength,
 } from 'class-validator';
-import { Role } from '../enums/role.enum';
+import { Role } from "../enums/role.enum";
 
 export class SignupDto {
   @ApiProperty({ example: 'user@example.com' })
@@ -33,7 +33,7 @@ export class SignupDto {
   @Length(3, 30)
   username: string;
 
-  @ApiProperty({ example: 'hotelier'})
+  @ApiProperty({ example: 'HOTELIER/TRAVELLER'})
   @IsEnum(Role)
   role: Role;
 }
@@ -48,7 +48,7 @@ export class LoginDto {
   @MinLength(6)
   password: string;
 
-  @ApiProperty({example: 'traveller'})
+  @ApiProperty({example: 'HOTELIER/TRAVELLER'})
   @IsEnum(Role)
   role: Role;
 }
