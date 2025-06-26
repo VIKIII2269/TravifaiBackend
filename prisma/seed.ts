@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { Role } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
@@ -23,6 +24,7 @@ async function main() {
             password: 'hashed_pass_1',
             phone: '1111111111',
             username: 'user1',
+            role: Role.HOTELIER,
             propertyInfo: {
                 create: {
                     hotelId: 'HID-001',
@@ -148,6 +150,7 @@ async function main() {
             password: 'hashed_pass_2',
             phone: '2222322223',
             username: 'user4',
+            role: Role.TRAVEL_AGENCY,
             propertyInfo: {
                 create: {
                     hotelId: 'HID-004',
@@ -179,6 +182,7 @@ async function main() {
             password: 'hashed_pass_2',
             phone: '2222222222',
             username: 'user2',
+            role: Role.TRAVELER,
             propertyInfo: {
                 create: {
                     hotelId: 'HID-002',
@@ -210,9 +214,74 @@ async function main() {
             password: 'hashed_pass_3',
             phone: '3333333333',
             username: 'user3',
+            role: Role.TAXI_DRIVER,
             propertyInfo: {
                 create: {
                     hotelId: 'HID-003',
+                    hotelName: 'Ocean View Inn',
+                    businessOwnerName: 'Rajeev Nair',
+                    designation: 'Partner',
+                    contact1Phone: '7777777777',
+                    contact1Email: 'rajeev@oceanview.com',
+                    locationLocality: 'Marine Drive',
+                    locationStreet: 'Beach Road',
+                    locationCity: 'Mumbai',
+                    locationState: 'Maharashtra',
+                    locationCountry: 'India',
+                    locationPincode: '400001',
+                    propertyType: 'Guest House',
+                    propertyRelationship: 'Partner',
+                    onLease: false,
+                    totalRooms: 15,
+                    registerOnOTAs: true,
+                    commissionPercentToOTAs: 10.0,
+                    uploadIntroVideoUrl: 'https://video.example.com/hotel3.mp4',
+                },
+            },
+            // ... (rest remains same)
+        },
+        {
+            id: 'user-uuid-005',
+            email: 'user5@example.com',
+            password: 'hashed_pass_5',
+            phone: '5555555555',
+            username: 'user5',
+            role: Role.ADMIN,
+            propertyInfo: {
+                create: {
+                    hotelId: 'HID-005',
+                    hotelName: 'Ocean View Inn',
+                    businessOwnerName: 'Rajeev Nair',
+                    designation: 'Partner',
+                    contact1Phone: '7777777777',
+                    contact1Email: 'rajeev@oceanview.com',
+                    locationLocality: 'Marine Drive',
+                    locationStreet: 'Beach Road',
+                    locationCity: 'Mumbai',
+                    locationState: 'Maharashtra',
+                    locationCountry: 'India',
+                    locationPincode: '400001',
+                    propertyType: 'Guest House',
+                    propertyRelationship: 'Partner',
+                    onLease: false,
+                    totalRooms: 15,
+                    registerOnOTAs: true,
+                    commissionPercentToOTAs: 10.0,
+                    uploadIntroVideoUrl: 'https://video.example.com/hotel3.mp4',
+                },
+            },
+            // ... (rest remains same)
+        },
+        {
+            id: 'user-uuid-006',
+            email: 'user6@example.com',
+            password: 'hashed_pass_6',
+            phone: '6666666666',
+            username: 'user6',
+            role: Role.TRAVELER,
+            propertyInfo: {
+                create: {
+                    hotelId: 'HID-006',
                     hotelName: 'Ocean View Inn',
                     businessOwnerName: 'Rajeev Nair',
                     designation: 'Partner',

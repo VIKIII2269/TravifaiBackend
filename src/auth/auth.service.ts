@@ -40,7 +40,9 @@ export class AuthService {
 
   async signup(dto: SignupDto) {
     const { email, password, phone, username, role } = dto;
-
+    if (role == Role.ADMIN) {
+      throw new BadRequestException('Admin signup is not allowed.');
+    }
     const [existingByEmail, existingByPhone, existingByUsername] =
       await Promise.all([
         this.prisma.user.findUnique({ where: { email } }),
@@ -74,7 +76,7 @@ export class AuthService {
       sub: createdUser.id,
       email: createdUser.email,
     });
-    return { access_token: token, userid: createdUser.id, role:dto.role};
+    return { access_token: token, userid: createdUser.id, role: dto.role };
   }
 
   async login(dto: LoginDto) {
@@ -98,7 +100,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
     });
-    return { access_token: token, userId: user.id, role:user.role };
+    return { access_token: token, userId: user.id, role: user.role };
   }
 
   async forgotPassword(email: string) {

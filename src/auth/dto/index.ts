@@ -2,6 +2,7 @@
 
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '@prisma/client';
+import { Transform } from 'class-transformer';
 import {
   IsEmail,
   IsEnum,
@@ -38,7 +39,8 @@ export class SignupDto {
   @Length(3, 30)
   username: string;
 
-  @ApiProperty({ example: 'HOTELIER/TRAVELLER'})
+  @ApiProperty({ example: 'Traveler/Hotelier/Travel Agency/Taxi Driver' })
+  @Transform(({ value }) => value?.toUpperCase().replace(' ', '_')) 
   @IsEnum(Role)
   role: Role;
 }
@@ -47,13 +49,14 @@ export class LoginDto {
   @ApiProperty({ example: 'user@example.com' })
   @IsEmail()
   email: string;
-
+  
   @ApiProperty({ example: 'veryStrongPassword123' })
   @IsString()
   @MinLength(6)
   password: string;
-
-  @ApiProperty({example: 'HOTELIER/TRAVELLER'})
+  
+  @ApiProperty({ example: 'Traveler/Hotelier/Travel Agency/Taxi Driver/Admin' })
+  @Transform(({ value }) => value?.toUpperCase().replace(' ', '_')) 
   @IsEnum(Role)
   role: Role;
 }

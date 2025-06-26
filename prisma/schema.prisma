@@ -6,18 +6,22 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 enum Role {
-  TRAVELLER
   HOTELIER
+  TRAVELER
+  TRAVEL_AGENCY
+  TAXI_DRIVER
+  ADMIN
 }
 
 model User {
-  id                String            @id @default(uuid())
-  email             String            @unique
-  password          String
-  phone             String            @unique
-  username          String            @unique
-  role              Role            @default(TRAVELLER)
+  email    String @unique
+  id       String @id @default(uuid())
+  password String
+  phone    String @unique
+  username String @unique
+  role     Role   @default(TRAVELER)
 
   propertyInfo       PropertyInfo?
   propertyRooms      PropertyRoom[]
@@ -62,8 +66,8 @@ model PropertyInfo {
   createdAt               DateTime @default(now())
   updatedAt               DateTime @updatedAt
 
-  user        User         @relation(fields: [userId], references: [id])
-  videos      HotelVideo[]
+  user         User          @relation(fields: [userId], references: [id])
+  videos       HotelVideo[]
   subscription Subscription? @relation("HotelSubscription")
 }
 
@@ -78,8 +82,8 @@ model Subscription {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  user        User         @relation(fields: [userId], references: [id])
-  property    PropertyInfo @relation("HotelSubscription", fields: [hotelId], references: [hotelId])
+  user     User         @relation(fields: [userId], references: [id])
+  property PropertyInfo @relation("HotelSubscription", fields: [hotelId], references: [hotelId])
 }
 
 model PropertyRoom {
@@ -108,7 +112,7 @@ model PropertyRoom {
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
 
-  user                 User     @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Connectivity {
@@ -121,7 +125,7 @@ model Connectivity {
   createdAt                 DateTime @default(now())
   updatedAt                 DateTime @updatedAt
 
-  user                      User     @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model PropertyUSP {
@@ -135,30 +139,30 @@ model PropertyUSP {
   createdAt                DateTime @default(now())
   updatedAt                DateTime @updatedAt
 
-  user                     User     @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Amenities {
-  id               String   @id @default(uuid())
-  userId           String   @unique
-  mandatory        String[]
-  basicFacilities  String[]
-  generalServices  String[]
+  id                String   @id @default(uuid())
+  userId            String   @unique
+  mandatory         String[]
+  basicFacilities   String[]
+  generalServices   String[]
   outdoorActivities String[]
-  commonAreas      String[]
-  foodAndDrink     String[]
-  healthWellness   String[]
-  businessCenter   String[]
-  beautyAndSpa     String[]
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  commonAreas       String[]
+  foodAndDrink      String[]
+  healthWellness    String[]
+  businessCenter    String[]
+  beautyAndSpa      String[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
-  user             User     @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model MandatoryAmenities {
-  id             String   @id @default(uuid())
-  userId         String   @unique
+  id              String   @id @default(uuid())
+  userId          String   @unique
   airConditioning Boolean
   laundry         Boolean
   newspaper       Boolean
@@ -174,17 +178,17 @@ model MandatoryAmenities {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  user            User     @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Document {
-  id             String   @id @default(uuid())
-  userId         String
-  category       String
-  fileUrl        String
-  createdAt      DateTime @default(now())
+  id        String   @id @default(uuid())
+  userId    String
+  category  String
+  fileUrl   String
+  createdAt DateTime @default(now())
 
-  user           User     @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model PropertyRules {
@@ -199,7 +203,7 @@ model PropertyRules {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  user         User     @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model PropertyStatus {
@@ -209,14 +213,14 @@ model PropertyStatus {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user      User     @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model HotelVideo {
-  id         String       @id @default(uuid())
+  id         String   @id @default(uuid())
   propertyId String
   videoUrl   String
-  createdAt  DateTime     @default(now())
+  createdAt  DateTime @default(now())
 
-  property   PropertyInfo @relation(fields: [propertyId], references: [id])
+  property PropertyInfo @relation(fields: [propertyId], references: [id])
 }
