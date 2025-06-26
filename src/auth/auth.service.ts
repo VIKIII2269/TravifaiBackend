@@ -1,12 +1,10 @@
-// src/auth/auth.service.ts
-
 import {
   Injectable,
   UnauthorizedException,
   BadRequestException,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from '../prisma.service'; // <-- Import from PrismaModule
+import { PrismaService } from '../prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import * as nodemailer from 'nodemailer';
@@ -16,7 +14,7 @@ import { Role } from '@prisma/client';
 @Injectable()
 export class AuthService {
   private readonly saltRounds = 10;
-  private otpStore = new Map<string, string>();
+  private otpStore = new Map<string, { otp: string; verified: boolean; expiresAt: number }>();
   private mailTransporter: any;
 
   constructor(
@@ -48,15 +46,9 @@ export class AuthService {
         this.prisma.user.findUnique({ where: { username } }),
       ]);
 
-    if (existingByEmail) {
-      throw new BadRequestException('Email is already registered');
-    }
-    if (existingByPhone) {
-      throw new BadRequestException('Phone number is already registered');
-    }
-    if (existingByUsername) {
-      throw new BadRequestException('Username is already taken');
-    }
+    if (existingByEmail) throw new BadRequestException('Email is already registered');
+    if (existingByPhone) throw new BadRequestException('Phone number is already registered');
+    if (existingByUsername) throw new BadRequestException('Username is already taken');
 
     const hashedPassword = await bcrypt.hash(password, this.saltRounds);
 
@@ -66,23 +58,18 @@ export class AuthService {
         password: hashedPassword,
         phone,
         username,
-        role: role as Role
+        role: role as Role,
       },
     });
 
-    const token = this.jwtService.sign({
-      sub: createdUser.id,
-      email: createdUser.email,
-    });
-    return { access_token: token, userid: createdUser.id, role:dto.role};
+    const token = this.jwtService.sign({ sub: createdUser.id, email: createdUser.email });
+    return { access_token: token, userid: createdUser.id, role: dto.role };
   }
 
   async login(dto: LoginDto) {
     const { email, password } = dto;
     const user = await this.prisma.user.findUnique({ where: { email } });
-    if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
+    if (!user) throw new UnauthorizedException('Invalid credentials');
 
     const userRole = user.role;
     if (dto.role?.trim().toLowerCase() !== userRole?.trim().toLowerCase()) {
@@ -90,27 +77,22 @@ export class AuthService {
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
+    if (!isMatch) throw new UnauthorizedException('Invalid credentials');
 
-    const token = this.jwtService.sign({
-      sub: user.id,
-      email: user.email,
-    });
-    return { access_token: token, userId: user.id, role:user.role };
+    const token = this.jwtService.sign({ sub: user.id, email: user.email });
+    return { access_token: token, userId: user.id, role: user.role };
   }
 
   async forgotPassword(email: string) {
     const user = await this.prisma.user.findUnique({ where: { email } });
-    if (!user) {
-      throw new NotFoundException('No user found with this email');
-    }
+    if (!user) throw new NotFoundException('No user found with this email');
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    this.otpStore.set(email, otp);
+    const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
 
-    const mailOptions: any = {
+    this.otpStore.set(email, { otp, verified: false, expiresAt });
+
+    const mailOptions = {
       from: process.env.EMAIL_FROM!,
       to: email,
       subject: 'Your Password Reset OTP',
@@ -121,10 +103,22 @@ export class AuthService {
     return { message: 'OTP sent to your email address' };
   }
 
-  async resetPassword(email: string, otp: string, newPassword: string) {
-    const storedOtp = this.otpStore.get(email);
-    if (!storedOtp || storedOtp !== otp) {
-      throw new UnauthorizedException('Invalid or expired OTP');
+  async verifyOtp(email: string, otp: string) {
+  const entry = this.otpStore.get(email);
+  if (!entry || entry.otp !== otp || Date.now() > entry.expiresAt) {
+    throw new UnauthorizedException('Invalid or expired OTP');
+  }
+
+  entry.verified = true;
+  this.otpStore.set(email, entry);
+  return { message: 'OTP verified successfully' };
+}
+
+
+  async resetPassword(email: string, newPassword: string) {
+    const entry = this.otpStore.get(email);
+    if (!entry || !entry.verified) {
+      throw new UnauthorizedException('OTP not verified');
     }
 
     const hashed = await bcrypt.hash(newPassword, this.saltRounds);

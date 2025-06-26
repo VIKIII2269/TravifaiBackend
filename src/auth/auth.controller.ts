@@ -15,6 +15,7 @@ import {
   LoginDto,
   ForgotPasswordDto,
   ResetPasswordDto,
+  VerifyOtpDto,
 } from './dto';
 
 @ApiTags('auth')
@@ -44,10 +45,20 @@ export class AuthController {
     return this.authService.forgotPassword(dto.email);
   }
 
+  @Post('verify-otp')
+@ApiOperation({ summary: 'Verify OTP before password reset' })
+@ApiBody({ type: VerifyOtpDto })
+async verifyOtp(@Body() dto: VerifyOtpDto) {
+  return this.authService.verifyOtp(dto.email, dto.otp);
+}
+
   @Post('reset-password')
-  @ApiOperation({ summary: 'Reset password using OTP' })
-  @ApiBody({ type: ResetPasswordDto })
-  async resetPassword(@Body() dto: ResetPasswordDto) {
-    return this.authService.resetPassword(dto.email, dto.otp, dto.newPassword);
+@ApiOperation({ summary: 'Reset password (after OTP verification)' })
+@ApiBody({ type: ResetPasswordDto })
+async resetPassword(@Body() dto: ResetPasswordDto) {
+  if (dto.newPassword !== dto.confirmPassword) {
+    throw new BadRequestException('Passwords do not match');
   }
+  return this.authService.resetPassword(dto.email, dto.newPassword);
+}
 }
