@@ -1,6 +1,7 @@
 // src/auth/dto/index.ts
 
 import { ApiProperty } from '@nestjs/swagger';
+import { Role } from '@prisma/client';
 import {
   IsEmail,
   IsEnum,
@@ -12,7 +13,6 @@ import {
   MinLength,
   Matches
 } from 'class-validator';
-import { Role } from "../enums/role.enum";
 
 export class SignupDto {
   @ApiProperty({ example: 'user@example.com' })

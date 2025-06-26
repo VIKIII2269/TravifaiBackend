@@ -1,4 +1,4 @@
-export enum Role {
-  TRAVELLER = 'TRAVELLER',
-  HOTELIER = 'HOTELIER',
-}
+// export enum Role {
+//   TRAVELLER = 'TRAVELLER',
+//   HOTELIER = 'HOTELIER',
+// }

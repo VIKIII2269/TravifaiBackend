@@ -11,6 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import * as nodemailer from 'nodemailer';
 import { SignupDto, LoginDto } from './dto';
+import { Role } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -65,7 +66,7 @@ export class AuthService {
         password: hashedPassword,
         phone,
         username,
-        role,
+        role: role as Role
       },
     });
 
