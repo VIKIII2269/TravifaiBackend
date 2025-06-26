@@ -8,6 +8,19 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const env = process.env.NODE_ENV || 'development';
+
+  if (env === 'production') {
+    app.enableCors({
+      origin: 'https://travifai.com',
+      credentials: true, 
+    });
+  } else {
+    app.enableCors({
+      origin: '*',
+    });
+  }
+
   // 1) All endpoints prefixed with /api
   app.setGlobalPrefix('api');
 
