@@ -78,7 +78,10 @@ export class AuthService {
 
     const userRole = user.role;
     if (dto.role?.trim().toLowerCase() !== userRole?.trim().toLowerCase()) {
-      throw new UnauthorizedException('Mismatched roles');
+      throw new UnauthorizedException({
+        message: 'Mismatch',
+        registeredRole: userRole,
+      });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -112,15 +115,15 @@ export class AuthService {
   }
 
   async verifyOtp(email: string, otp: string) {
-  const entry = this.otpStore.get(email);
-  if (!entry || entry.otp !== otp || Date.now() > entry.expiresAt) {
-    throw new UnauthorizedException('Invalid or expired OTP');
-  }
+    const entry = this.otpStore.get(email);
+    if (!entry || entry.otp !== otp || Date.now() > entry.expiresAt) {
+      throw new UnauthorizedException('Invalid or expired OTP');
+    }
 
-  entry.verified = true;
-  this.otpStore.set(email, entry);
-  return { message: 'OTP verified successfully' };
-}
+    entry.verified = true;
+    this.otpStore.set(email, entry);
+    return { message: 'OTP verified successfully' };
+  }
 
 
   async resetPassword(email: string, newPassword: string) {
