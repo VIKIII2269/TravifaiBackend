@@ -73,13 +73,13 @@ export class CreatePropertyInfoDto {
   @IsString()
   locationPincode!: string;
 
-  @ApiProperty()
-  @IsNumber()
-  locationLatitude!: number;
+  // @ApiProperty()
+  // @IsNumber()
+  // locationLatitude!: number;
 
-  @ApiProperty()
-  @IsNumber()
-  locationLongitude!: number;
+  // @ApiProperty()
+  // @IsNumber()
+  // locationLongitude!: number;
 
   @ApiProperty()
   @IsString()

@@ -54,8 +54,8 @@ model PropertyInfo {
   locationState           String
   locationCountry         String
   locationPincode         String
-  locationLatitude        Float?
-  locationLongitude       Float?
+  // locationLatitude        Float?
+  // locationLongitude       Float?
   propertyType            String
   propertyRelationship    String
   onLease                 Boolean
