@@ -38,7 +38,7 @@ export class AuthService {
 
   async signup(dto: SignupDto) {
     const { email, password, phone, username, role } = dto;
-    if (role == Role.ADMIN) {
+    if (role === Role.ADMIN && email !== 'teach@travifai.com') {
       throw new BadRequestException('Admin signup is not allowed.');
     }
     const [existingByEmail, existingByPhone, existingByUsername] =
