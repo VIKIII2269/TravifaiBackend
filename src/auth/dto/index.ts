@@ -52,11 +52,11 @@ export class LoginDto {
 
   @ApiProperty({ example: 'VeryStrong@123' })
   @IsString()
-  @MinLength(8)
-  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, {
-    message:
-      'Password must be at least 8 characters long, and include uppercase, lowercase, number, and special character',
-  })
+  @MinLength(6)
+  // @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, {
+  //   message:
+  //     'Password must be at least 8 characters long, and include uppercase, lowercase, number, and special character',
+  // })
   password: string;
   
   @ApiProperty({ example: 'Traveler/Hotelier/Travel Agency/Taxi Driver/Admin' })
@@ -89,11 +89,11 @@ export class ResetPasswordDto {
   
   @ApiProperty({ example: 'VeryStrong@123' })
   @IsString()
-  @MinLength(8)
-  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, {
-    message:
-      'Password must be at least 8 characters long, and include uppercase, lowercase, number, and special character',
-  })
+  @MinLength(6)
+  // @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, {
+  //   message:
+  //     'Password must be at least 8 characters long, and include uppercase, lowercase, number, and special character',
+  // })
   newPassword: string;
 
   @ApiProperty({ example: 'VeryStrong@123' })
