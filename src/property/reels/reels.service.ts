@@ -32,30 +32,28 @@ export class ReelsService {
     return { message: 'Video uploaded successfully', video };
   }
 
-  async getHotelVideos(propertyId: string) {
+  async getHotelVideos(propertyId: string, cursor?: string, take = 5) {
     const hotel = await this.prisma.propertyInfo.findUnique({
       where: { id: propertyId },
     });
 
-    if (!hotel) throw new NotFoundException('Hotel not found');
+    if(!hotel) throw new NotFoundException('Hotel not found');
 
     const videos = await this.prisma.hotelVideo.findMany({
       where: { propertyId },
       orderBy: { createdAt: 'desc' },
+      take,
+      ...(cursor && {
+        skip: 1,
+        cursor: { id: cursor }, 
+      }),
     });
-
-    if (!videos.length) {
-      return {
-        propertyId,
-        hotelName: hotel.hotelName,
-        message: 'No videos uploaded yet',
-      };
-    }
 
     return {
       propertyId,
       hotelName: hotel.hotelName,
       videos,
+      nextCursor: videos.length ? videos[videos.length - 1].id: null,
     };
   }
 }
