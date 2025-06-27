@@ -15,6 +15,9 @@ export class ConnectivityService {
       userId,
       channelManagerUsed: dto.channelManagerUsed,
       connectedWithTravelAgency: dto.connectedWithTravelAgency,
+      channelManagerName: dto.channelManagerName,
+      travelAgencyContact: dto.travelAgencyContact,
+      travelAgencyName: dto.travelAgencyName,
     };
 
     if (existing) {
