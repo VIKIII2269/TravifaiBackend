@@ -19,6 +19,7 @@ export class ConnectivityService {
       travelAgencyContact: dto.travelAgencyContact,
       travelAgencyName: dto.travelAgencyName,
     };
+    console.log(dto);
 
     if (existing) {
       return this.prisma.connectivity.update({

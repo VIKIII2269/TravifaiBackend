@@ -17,7 +17,7 @@ export class CreateConnectivityDto {
   channelManagerName:string;
 
   @ApiProperty()
-  // @IsPhoneNumber()
+  @IsPhoneNumber('IN')
   travelAgencyContact: string;
 
   @ApiProperty()
