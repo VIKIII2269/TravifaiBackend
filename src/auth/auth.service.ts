@@ -73,9 +73,11 @@ export class AuthService {
 
   async login(dto: LoginDto) {
     const { email, password } = dto;
+    
+    //if user does not exist
     const user = await this.prisma.user.findUnique({ where: { email } });
-    if (!user) throw new UnauthorizedException('Invalid credentials');
-
+    if (!user) throw new NotFoundException('User does not exist');
+    
     const userRole = user.role;
     if (dto.role?.trim().toLowerCase() !== userRole?.trim().toLowerCase()) {
       throw new UnauthorizedException({
