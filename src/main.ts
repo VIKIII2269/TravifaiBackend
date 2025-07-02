@@ -12,7 +12,8 @@ async function bootstrap() {
 
   if (env === 'production') {
     app.enableCors({
-      origin: 'https://travifai.com',
+      origin: ['https://travifai.com',
+      'http://localhost:5173'],
       credentials: true, 
     });
   } else {
